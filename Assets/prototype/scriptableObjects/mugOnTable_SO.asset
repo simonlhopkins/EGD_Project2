@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aadcb435c9eaa4c82bbb6d5789988f04, type: 3}
+  m_Name: mugOnTable_SO
+  m_EditorClassIdentifier: 
+  flavorName: Mug on the table
+  sprite: {fileID: 0}
+  parent: {fileID: 0}
+  children:
+  - {fileID: 11400000, guid: 8de81f70b369742138ceea6565f6e06c, type: 2}
+  - {fileID: 11400000, guid: 059e130c549094bbfa1d720c891c81ab, type: 2}
+  hasBeenCompleted: 0
