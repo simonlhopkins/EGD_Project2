@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManagerScript : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    
     void Start()
     {
         
@@ -15,19 +17,52 @@ public class GameManagerScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-            if (hit.collider)
+            if (hit.collider != null)
             {
-                if (hit.collider.gameObject.GetComponent<Task>()) {
-                    
-                    foreach (TaskSO t in hit.collider.gameObject.GetComponent<Task>().taskSO.children) {
-                        Debug.Log(t.flavorName);
-                    }
+                Debug.Log(hasUncompletedTasksInChildren(hit.collider.gameObject.GetComponent<Task>().head));
+            }
+        }
+    }
+
+    private bool hasUncompletedTasksInChildren(TaskSO head) {
+
+        if (head.children.Count == 0) {
+            return false;
+        }
+        foreach (TaskSO child in head.children)
+        {
+            if (!child.complete)
+            {
+                Debug.Log(child.title + " is incomplete");
+                return true;
+            }
+            hasUncompletedTasksInChildren(child);
+        }
+        return false;
+        
+    }
+    private void bfs(TaskSO head) {
+        Queue<TaskSO> q = new Queue<TaskSO>();
+        HashSet<TaskSO> visitedNodes = new HashSet<TaskSO>();
+        visitedNodes.Add(head);
+        q.Enqueue(head);
+        while (q.Count != 0) {
+            TaskSO v = q.Dequeue();
+            //v is the current vertex and we are going to add all of
+            //its children to the queue
+            foreach (TaskSO child in v.children) {
+                if (!visitedNodes.Contains(child)) {
+                    q.Enqueue(child);
+                    visitedNodes.Add(child);
+                    Debug.Log(child.title);
                 }
             }
         }
+    }
+
+    public void displayTasks() {
+        
     }
 }

@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aadcb435c9eaa4c82bbb6d5789988f04, type: 3}
-  m_Name: mugOnTable_SO
+  m_Name: drinkCoffeeTask
   m_EditorClassIdentifier: 
-  flavorName: Mug on the table
-  sprite: {fileID: 0}
-  parent: {fileID: 0}
-  children:
-  - {fileID: 11400000, guid: 8de81f70b369742138ceea6565f6e06c, type: 2}
-  - {fileID: 11400000, guid: 059e130c549094bbfa1d720c891c81ab, type: 2}
-  hasBeenCompleted: 0
+  title: Drink Coffee
+  icon: {fileID: 0}
+  parent: {fileID: 11400000, guid: 15d53184906fe4088b0edd7361e2b469, type: 2}
+  achievementText: You drank the coffee
+  children: []
+  complete: 0

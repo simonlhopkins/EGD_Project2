@@ -7,13 +7,18 @@ using UnityEngine;
 public class TaskSO : ScriptableObject
 {
 
-    public string flavorName;
-    public Sprite sprite;
+    public string title;
+    public Sprite icon;
     public TaskSO parent;
-    public List<TaskSO> children;
+    public string achievementText;
+    public List<TaskSO> children = new List<TaskSO>();
+    public bool complete = false;
 
-    public bool hasBeenCompleted = false;
+}
 
+
+[CreateAssetMenu(menuName = "ScriptableObjects/Task Scriptable Object", order = 1)]
+public class HeadTaskSO : TaskSO
+{
     
-
 }
