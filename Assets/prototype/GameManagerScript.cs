@@ -6,10 +6,10 @@ public class GameManagerScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    
+    private UIManager uiManager;
     void Start()
     {
-        
+        uiManager = GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -21,7 +21,8 @@ public class GameManagerScript : MonoBehaviour
 
             if (hit.collider != null)
             {
-                Debug.Log(hasUncompletedTasksInChildren(hit.collider.gameObject.GetComponent<Task>().head));
+                Debug.Log("generate");
+                uiManager.generateTaskPopup(hit.collider.gameObject.GetComponent<Task>().head.children, Input.mousePosition);
             }
         }
     }
