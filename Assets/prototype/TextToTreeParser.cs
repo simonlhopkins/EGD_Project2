@@ -35,30 +35,32 @@ public class TextToTreeParser : MonoBehaviour {
                 }
             }
 
+            // split the lines of the text file into each component
             string[] info = line.Split('|');
 
+            // update all information for the new TaskSO from the text file
             mostRecentNode = new TaskSO();
             mostRecentNode.parent = currentParent;
             currentParent.children.Add(mostRecentNode);
-            //mostRecentNode.sprite = info[0]; // need to do something about load the sprite asset for this
-            //mostRecentNode.title = info[1];
-            //mostRecentNode.achievement = info[2];
+            //mostRecentNode.icon = info[0]; // need to do something about load the sprite asset for this
+            mostRecentNode.title = info[1];
+            mostRecentNode.achievementText = info[2];
 
             previousTabCount = tabCount; // update the previous tab count to the tab count of the line just specified
         }
 
         // for testing if it is parsing properly
-        /*foreach(TaskSO child in root.children) {
+        foreach(TaskSO child in root.children) {
             foreach(TaskSO c in child.children) {
-                Debug.Log("Parent: " + child.flavorName + " and Child: " + c.flavorName);
+                Debug.Log("Parent: " + child.title + " and Child: " + c.title);
                 foreach(TaskSO c2 in c.children) {
-                    Debug.Log("Parent: " + c.flavorName + " and Child: " + c2.flavorName);
+                    Debug.Log("Parent: " + c.title + " and Child: " + c2.title);
                     foreach(TaskSO c3 in c2.children) {
-                        Debug.Log("Parent: " + c2.flavorName + " and Child: " + c3.flavorName);
+                        Debug.Log("Parent: " + c2.title + " and Child: " + c3.title);
                     }
                 }
             }
-        }*/
+        }
         
     }
 }
