@@ -1,0 +1,64 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+public class TextToTreeParser : MonoBehaviour {
+    [Tooltip("Example: 'Assets/prototype/textFiles/test0.txt'")]
+    public string filePath = "Assets/prototype/textFiles/test0.txt";
+
+    private StreamReader reader;
+    private int previousTabCount = -1;
+    private string line = "";
+
+    // Start is called before the first frame update
+    void Awake() {
+        TaskSO root = new TaskSO();
+
+        reader = new StreamReader(filePath);
+
+        int tabCount = 0;
+        TaskSO currentParent = root;
+        TaskSO mostRecentNode = root;
+        while((line = reader.ReadLine()) != null) {
+            tabCount = line.Split('\t').Length - 1;
+            line = line.Replace("\t", "");
+
+            // logic to update current parent based on change in tab count
+            if (tabCount > previousTabCount) { // case for if a new child grouping has been introduced
+                currentParent = mostRecentNode;
+            } else if(tabCount < previousTabCount) { // case for if a child grouping has just been ended (special case, can go back multiple tabs)
+                int tabDifference = (previousTabCount - tabCount);
+
+                for(int i=0; i<tabDifference; i++) {
+                    currentParent = currentParent.parent;
+                }
+            }
+
+            string[] info = line.Split('|');
+
+            mostRecentNode = new TaskSO();
+            mostRecentNode.parent = currentParent;
+            currentParent.children.Add(mostRecentNode);
+            //mostRecentNode.sprite = info[0]; // need to do something about load the sprite asset for this
+            //mostRecentNode.title = info[1];
+            //mostRecentNode.achievement = info[2];
+
+            previousTabCount = tabCount; // update the previous tab count to the tab count of the line just specified
+        }
+
+        // for testing if it is parsing properly
+        /*foreach(TaskSO child in root.children) {
+            foreach(TaskSO c in child.children) {
+                Debug.Log("Parent: " + child.flavorName + " and Child: " + c.flavorName);
+                foreach(TaskSO c2 in c.children) {
+                    Debug.Log("Parent: " + c.flavorName + " and Child: " + c2.flavorName);
+                    foreach(TaskSO c3 in c2.children) {
+                        Debug.Log("Parent: " + c2.flavorName + " and Child: " + c3.flavorName);
+                    }
+                }
+            }
+        }*/
+        
+    }
+}

@@ -1,0 +1,23 @@
+image | t1 | achievement
+	i | t2 | a
+		i | t3 | a
+		i | t4 | a
+			i | t5 | a
+				i | t6 | a
+					i | t7 | a
+						i | t8 | a
+						i | t9 | a
+					i | t10 | a
+			i | t11 | a
+		i | t12 | a
+	i | t13 | a
+		i | t14 | a
+		i | t15 | a
+		i | t16 | a
+	i | t17 | a
+i | t18 | a
+	i | t19 | a
+		i | t20 | a
+		i | t21 | a
+		i | t22 | a
+	i | t23 | a
