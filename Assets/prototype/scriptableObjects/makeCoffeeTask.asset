@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aadcb435c9eaa4c82bbb6d5789988f04, type: 3}
-  m_Name: painting_SO
+  m_Name: makeCoffeeTask
   m_EditorClassIdentifier: 
-  flavorName: Painting On the Wall
-  sprite: {fileID: 0}
+  title: Make Coffee
+  icon: {fileID: 21300000, guid: 6da37fc12c944499993b8fa06e68943a, type: 3}
   parent: {fileID: 0}
-  children:
-  - {fileID: 11400000, guid: 8de81f70b369742138ceea6565f6e06c, type: 2}
-  - {fileID: 11400000, guid: a05b17fefbbf24fcdb04e1aad5c0d3a2, type: 2}
-  hasBeenCompleted: 0
+  achievementText: You made coffee
+  children: []
+  complete: 0
