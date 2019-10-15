@@ -25,18 +25,18 @@ public class Task : MonoBehaviour
     {
         renderScriptableObject();
 
-        TaskSO testHead = new TaskSO();
-        TaskSO testc1 = new TaskSO();
+        TaskSO testHead = ScriptableObject.CreateInstance<TaskSO>();
+        TaskSO testc1 = ScriptableObject.CreateInstance<TaskSO>();
         testc1.title = "c1";
-        TaskSO testc2 = new TaskSO();
+        TaskSO testc2 = ScriptableObject.CreateInstance<TaskSO>();
         testc2.title = "c2";
-        TaskSO testc3 = new TaskSO();
+        TaskSO testc3 = ScriptableObject.CreateInstance<TaskSO>();
         testc3.title = "c3";
-        TaskSO testc4 = new TaskSO();
+        TaskSO testc4 = ScriptableObject.CreateInstance<TaskSO>();
         testc4.title = "c4";
-        TaskSO testc5 = new TaskSO();
+        TaskSO testc5 = ScriptableObject.CreateInstance<TaskSO>();
         testc5.title = "c5";
-        TaskSO testc6 = new TaskSO();
+        TaskSO testc6 = ScriptableObject.CreateInstance<TaskSO>();
         testc6.title = "c6";
 
         addNodes(testHead, new List<TaskSO>() { testc1, testc2 });
@@ -47,11 +47,9 @@ public class Task : MonoBehaviour
         head = testHead;
         foreach(TaskSO task in nodes)
         {
-            task.complete = true;
+            task.complete = false;
         }
-
-        testc5.complete = false;
-        testc6.complete = false;
+        
 
     }
 
