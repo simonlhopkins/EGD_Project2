@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -18,13 +19,16 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject()) {
+                return;
+            }
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             uiManager.findValidPositionForPopup(Input.mousePosition);
             if (hit.collider != null)
             {
-                Debug.Log("generate");
                 head = hit.collider.gameObject.GetComponent<Task>().head;
                 uiManager.setNewHead(head);
             }

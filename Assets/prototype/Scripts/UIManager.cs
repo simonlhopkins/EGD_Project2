@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
 
     //dictionary for keeping track of everything on the screen
     Dictionary<TaskSO, GameObject> taskToButtonDict = new Dictionary<TaskSO, GameObject>();
+    Dictionary<GameObject, GameObject> boxToTailDict = new Dictionary<GameObject, GameObject>();
 
     //called one time on mouse down
     //creates, positions, and adds buttons with corresponding tasks
@@ -32,10 +33,10 @@ public class UIManager : MonoBehaviour
 
         currentTasks = tasksToDisplay;
         Vector3 pointToSpawn = findValidPositionForPopup(position);
-        drawTail(position, pointToSpawn, canvas.transform);
+        GameObject _tail = drawTail(position, pointToSpawn, canvas.transform);
         GameObject _popupContainer = Instantiate(popupContainer);
 
-
+        boxToTailDict.Add(_popupContainer, _tail);
 
         _popupContainer.transform.SetParent(canvas.transform, false);
         
@@ -53,7 +54,7 @@ public class UIManager : MonoBehaviour
         int i = 0;
         foreach (GameObject button in renderedButtons) {
             Vector3 originalPos = button.GetComponent<RectTransform>().position;
-            button.transform.position = button.GetComponent<RectTransform>().position + (Vector3.right * 100f);
+            button.transform.position = button.GetComponent<RectTransform>().position + (Vector3.right * 300f);
             Sequence s = DOTween.Sequence();
             s.Append(button.transform.DOMove(originalPos, 0.5f).SetDelay(i*0.1f));
             s.Append(button.transform.DOShakeRotation(1f, 2f).SetLoops(int.MaxValue));
@@ -90,7 +91,7 @@ public class UIManager : MonoBehaviour
     }
 
     //takes 2 screen space args
-    public void drawTail(Vector3 startPos, Vector3 endPos, Transform _parent) {
+    public GameObject drawTail(Vector3 startPos, Vector3 endPos, Transform _parent) {
         GameObject tail = new GameObject();
 
         tail.transform.SetParent(_parent, false);
@@ -107,6 +108,7 @@ public class UIManager : MonoBehaviour
         Debug.Log(vecToTarg.magnitude/ rt.rect.height);
         rt.localScale = new Vector3(0.5f, 0f, 1f);
         rt.DOScaleY(vecToTarg.magnitude / rt.rect.height, 0.5f);
+        return tail;
         //rt.localScale = new Vector3(0.1f, vecToTarg.magnitude / rt.rect.height, 1f);
     }
 
@@ -142,6 +144,37 @@ public class UIManager : MonoBehaviour
         return true;
     }
 
+    public void updateCompleteness(TaskSO head) {
+        if (head == null) {
+            return;
+        }
+        //if all of the children are complete, delete the child gameobject
+        if (allChildrenComplete(head)) {
+            if (taskToButtonDict.ContainsKey(head))
+            {
+                taskToButtonDict[head].GetComponent<Image>().color = Color.green;
+                if (head.children.Count != 0) {
+                    GameObject wrapperToDelete = null;
+                    foreach (TaskSO child in head.children) {
+                        if (wrapperToDelete != taskToButtonDict[child].transform.parent.gameObject) {
+                            wrapperToDelete = taskToButtonDict[child].transform.parent.gameObject;
+                        }
+                        taskToButtonDict.Remove(child);
+                    }
+                    Sequence s = DOTween.Sequence();
+                    s.Append(boxToTailDict[wrapperToDelete].transform.DOScaleY(0f, 0.5f));
+                    s.Append(wrapperToDelete.transform.DOMoveY(5f, 0.5f));
+                    boxToTailDict.Remove(wrapperToDelete);
+                    Destroy(wrapperToDelete, s.Duration());
+                }
+            }
+            else {
+                Debug.Log("isn't in dict: " + head.title);
+            }
+            
+            updateCompleteness(head.parent);
+        }
+    }
     public void setNewHead(TaskSO t) {
         //need to get siblings of task
 
@@ -150,9 +183,8 @@ public class UIManager : MonoBehaviour
         //    return;
         //}
         t.complete = true;
-        if (allChildrenComplete(t)) {
-            taskToButtonDict[t].GetComponent<Image>().color = Color.green;
-        }
+
+        updateCompleteness(t);
         Debug.Log(t.children);
         generateTaskPopup(t.children, Input.mousePosition);
 
