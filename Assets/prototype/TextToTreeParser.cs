@@ -42,7 +42,7 @@ public class TextToTreeParser : MonoBehaviour {
             mostRecentNode = new TaskSO();
             mostRecentNode.parent = currentParent;
             currentParent.children.Add(mostRecentNode);
-            //mostRecentNode.icon = info[0]; // need to do something about load the sprite asset for this
+            mostRecentNode.icon = Resources.Load(info[0]) as Sprite;
             mostRecentNode.title = info[1];
             mostRecentNode.achievementText = info[2];
 

@@ -1,23 +1,23 @@
-image | t1 | achievement
-	i | t2 | a
-		i | t3 | a
-		i | t4 | a
-			i | t5 | a
-				i | t6 | a
-					i | t7 | a
-						i | t8 | a
-						i | t9 | a
-					i | t10 | a
-			i | t11 | a
-		i | t12 | a
-	i | t13 | a
-		i | t14 | a
-		i | t15 | a
-		i | t16 | a
-	i | t17 | a
-i | t18 | a
-	i | t19 | a
-		i | t20 | a
-		i | t21 | a
-		i | t22 | a
-	i | t23 | a
+Assets/prototype/sprites/background | line1 | achievement
+	Assets/prototype/sprites/bookOnDesk | line2 | achievement
+		Assets/prototype/sprites/frameOnWall | line3 | achievement
+		Assets/prototype/sprites/mugOnTable | line4 | achievement
+			Assets/prototype/sprites/triangle | line5 | achievement
+				Assets/prototype/sprites/whitebox | line6 | achievement
+					Assets/prototype/sprites/background | line7 | achievement
+						Assets/prototype/sprites/background | line8 | achievement
+						Assets/prototype/sprites/background | line9 | achievement
+					Assets/prototype/sprites/background | line10 | achievement
+			Assets/prototype/sprites/background | line11 | achievement
+		Assets/prototype/sprites/background | line12 | achievement
+	Assets/prototype/sprites/background | line13 | achievement
+		Assets/prototype/sprites/background | line14 | achievement
+		Assets/prototype/sprites/background | line15 | achievement
+		Assets/prototype/sprites/background | line16 | achievement
+	Assets/prototype/sprites/background | line17 | achievement
+Assets/prototype/sprites/background | line18 | achievement
+	Assets/prototype/sprites/background | line19 | achievement
+		Assets/prototype/sprites/background | line20 | achievement
+		Assets/prototype/sprites/background | line21 | achievement
+		Assets/prototype/sprites/background | line22 | achievement
+	Assets/prototype/sprites/background | line23 | achievement
