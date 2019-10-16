@@ -99,7 +99,7 @@ MonoBehaviour:
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 1
+  m_ChildScaleHeight: 0
 --- !u!114 &806051695474252245
 MonoBehaviour:
   m_ObjectHideFlags: 0

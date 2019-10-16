@@ -51,18 +51,20 @@ public class UIManager : MonoBehaviour
         List<GameObject> renderedButtons = new List<GameObject>();
         foreach (TaskSO task in tasksToDisplay) {
 
-            renderedButtons.Add(createButton(task, _popupContainer.transform));
-
+            GameObject newButton = createButton(task, _popupContainer.transform);
+            renderedButtons.Add(newButton);
 
         }
         Canvas.ForceUpdateCanvases();
         int i = 0;
+        Debug.Log("length: " + renderedButtons.Count);
         foreach (GameObject button in renderedButtons) {
             Vector3 originalPos = button.GetComponent<RectTransform>().position;
-            button.transform.position = button.GetComponent<RectTransform>().position + (Vector3.right * 300f);
+            //button.transform.position = originalPos + (Vector3.right * 300f);
             Sequence s = DOTween.Sequence();
-            s.Append(button.transform.DOMove(originalPos, 0.5f).SetDelay(i*0.1f));
-            s.Append(button.transform.DOShakeRotation(1f, 2f).SetLoops(int.MaxValue));
+            
+            //s.Append(button.GetComponent<Image>().material.DOFade(1f, 1f));
+            s.Append(button.transform.DOShakeRotation(1f, 10f).SetLoops(int.MaxValue));
             
             i++;
         }
@@ -126,6 +128,7 @@ public class UIManager : MonoBehaviour
         _newButton.GetComponentInChildren<Text>().text = task.title;
         if (!taskToButtonDict.ContainsKey(task)) {
             taskToButtonDict.Add(task, _newButton);
+            //when you are creating a new button
             if (task.complete)
             {
                 taskToButtonDict[task].GetComponent<Image>().color = Color.green;
@@ -146,7 +149,6 @@ public class UIManager : MonoBehaviour
     }
 
     public bool allChildrenComplete(TaskSO task) {
-        Debug.Log("running on: " + task.title);
         if (task.children.Count == 0)
         {
             return task.complete;
@@ -154,17 +156,13 @@ public class UIManager : MonoBehaviour
         bool allComplete = true;
         foreach (TaskSO t in task.children)
         {
-            Debug.Log(t.title + " is complete: " + t.complete);
             if (!allChildrenComplete(t))
             {
                 allComplete = false;
             }
-   
-
 
         }
 
-        Debug.Log("all complete in " + task.title + " " + allComplete);
         return allComplete;
         
         
@@ -178,11 +176,8 @@ public class UIManager : MonoBehaviour
 
         //if all of the children are completed
         if (allChildrenComplete(head)) {
-            //if (head.parent == null)
-            //{
-            //    Debug.Log("this path is exhausted");
-            //    return;
-            //}
+
+            //recurses up the parents, and sets them to green if they are all compelte
             if (taskToButtonDict.ContainsKey(head))
             {
                 taskToButtonDict[head].GetComponent<Image>().color = Color.green;
@@ -212,6 +207,8 @@ public class UIManager : MonoBehaviour
                 if (wrapperToDelete == null) {
                     return;
                 }
+
+                //removeal
                 Sequence s = DOTween.Sequence();
                 s.Append(boxToTailDict[wrapperToDelete].transform.DOScaleY(0f, 0.5f));
                 s.Append(wrapperToDelete.transform.DOMoveY(5f, 0.5f));
@@ -231,6 +228,7 @@ public class UIManager : MonoBehaviour
             return;
         }
         t.complete = true;
+        //this will only be entered if all of the children are not complete
         if (taskToButtonDict.ContainsKey(t))
         {
             
