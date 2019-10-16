@@ -29,8 +29,12 @@ public class GameManagerScript : MonoBehaviour
             uiManager.findValidPositionForPopup(Input.mousePosition);
             if (hit.collider != null)
             {
+                uiManager.clearAllPopups(head);
                 head = hit.collider.gameObject.GetComponent<Task>().head;
                 uiManager.setNewHead(head);
+            }
+            else {
+                uiManager.clearAllPopups(head);
             }
         }
 
