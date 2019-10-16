@@ -14,7 +14,7 @@ public class TaskSO : ScriptableObject
     public List<TaskSO> children = new List<TaskSO>();
     public bool complete = false;
     public bool hasBeenVisited = false;
-    public float timeToAppear = 4f;
+    public float timeToAppear = 0f;
 
 }
 
