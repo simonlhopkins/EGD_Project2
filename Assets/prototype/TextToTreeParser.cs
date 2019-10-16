@@ -20,9 +20,11 @@ public class TextToTreeParser : MonoBehaviour {
         int tabCount = 0;
         TaskSO currentParent = root;
         TaskSO mostRecentNode = root;
+
+        // loop through every line of the text file
         while((line = reader.ReadLine()) != null) {
-            tabCount = line.Split('\t').Length - 1;
-            line = line.Replace("\t", "");
+            tabCount = line.Split('\t').Length - 1; // get the tab count of this line
+            line = line.Replace("\t", ""); // get rid of all tabs after getting the tab count
 
             // logic to update current parent based on change in tab count
             if (tabCount > previousTabCount) { // case for if a new child grouping has been introduced
@@ -30,6 +32,7 @@ public class TextToTreeParser : MonoBehaviour {
             } else if(tabCount < previousTabCount) { // case for if a child grouping has just been ended (special case, can go back multiple tabs)
                 int tabDifference = (previousTabCount - tabCount);
 
+                // update the current parent for however many tabs back the next line is
                 for(int i=0; i<tabDifference; i++) {
                     currentParent = currentParent.parent;
                 }
