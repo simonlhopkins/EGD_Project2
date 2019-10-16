@@ -33,24 +33,13 @@ public class GameManagerScript : MonoBehaviour
                 uiManager.setNewHead(head);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            uiManager.clearAllPopups(head);
+        }
     }
 
-    private bool hasUncompletedTasksInChildren(TaskSO _head) {
-
-        if (_head.children.Count == 0) {
-            return false;
-        }
-        foreach (TaskSO child in head.children)
-        {
-            if (!child.complete)
-            {
-                return true;
-            }
-            hasUncompletedTasksInChildren(child);
-        }
-        return false;
-        
-    }
+    
     private void bfs(TaskSO _head) {
         Queue<TaskSO> q = new Queue<TaskSO>();
         HashSet<TaskSO> visitedNodes = new HashSet<TaskSO>();

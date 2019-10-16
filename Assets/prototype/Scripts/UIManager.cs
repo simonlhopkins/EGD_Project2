@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour
         while (!foundValidPoint)
         {
             Vector3 mouseWP = Camera.main.ScreenToWorldPoint(_mouseDownPos);
-            tryPoint = new Vector2(mouseWP.x, mouseWP.y) + Random.insideUnitCircle.normalized*5f;
+            tryPoint = new Vector2(mouseWP.x, mouseWP.y) + Random.insideUnitCircle.normalized*2f;
             if (tryPoint.x > -screenWidth && tryPoint.x < screenWidth) {
                 if (tryPoint.y > -screenHeight && tryPoint.y < screenHeight)
                 {
@@ -110,7 +110,6 @@ public class UIManager : MonoBehaviour
         i.sprite = tailSprite;
         RectTransform rt = tail.GetComponent<RectTransform>();
         rt.pivot = new Vector2(0.5f, 1f);
-        Debug.Log(vecToTarg.magnitude/ rt.rect.height);
         rt.localScale = new Vector3(0.5f, 0f, 1f);
         rt.DOScaleY(vecToTarg.magnitude / rt.rect.height, 0.5f);
         return tail;
@@ -137,21 +136,26 @@ public class UIManager : MonoBehaviour
     }
 
     public bool allChildrenComplete(TaskSO task) {
-
-
-        bool hasIncomplete = false;
+        Debug.Log("running on: " + task.title);
+        if (task.children.Count == 0)
+        {
+            return task.complete;
+        }
+        bool allComplete = true;
         foreach (TaskSO t in task.children)
         {
             Debug.Log(t.title + " is complete: " + t.complete);
-            if (!t.complete)
+            if (!allChildrenComplete(t))
             {
-                return false;
+                allComplete = false;
             }
-            allChildrenComplete(t);
-            
-            
+   
+
+
         }
-        return true;
+
+        Debug.Log("all complete in " + task.title + " " + allComplete);
+        return allComplete;
         
         
     }
@@ -161,7 +165,8 @@ public class UIManager : MonoBehaviour
             Debug.Log("head is null");
             return;
         }
-        //if all of the children are complete, delete the child gameobject
+
+        //if all of the children are completed
         if (allChildrenComplete(head)) {
             head.complete = true;
             if (taskToButtonDict.ContainsKey(head))
@@ -200,39 +205,41 @@ public class UIManager : MonoBehaviour
     public void setNewHead(TaskSO t) {
         //need to get siblings of task
 
-        //if (!currentTasks.Contains(t))
-        //{
-        //    return;
-        //}
-        //t.complete = allChildrenComplete(t);
+        t.complete = true;
+        if (taskToButtonDict.ContainsKey(t))
+        {
+            taskToButtonDict[t].GetComponent<Image>().color = Color.green;
 
+        }
         updateCompleteness(t);
         generateTaskPopup(t.children, Input.mousePosition);
 
-        //iterate down to see if all of the chikdren are complete
 
-        //if (allComplete) {
-        //    Debug.Log("All are complete");
-        //    foreach (TaskSO task in t.parent.children)
-        //    {
+    }
 
+    public void clearAllPopups(TaskSO head) {
+        //inefficient, iterate over entire dict
 
-        //        if (taskToButtonDict[task].transform.parent.gameObject) {
-        //            Destroy(taskToButtonDict[task].transform.parent.gameObject);
-        //        }
-        //        taskToButtonDict.Remove(task);
+        foreach (TaskSO key in taskToButtonDict.Keys) {
+            GameObject box = taskToButtonDict[key].transform.parent.gameObject;
+            //if the box is still there
+            if (boxToTailDict.ContainsKey(box)) {
+                //remove box and tail
+                GameObject tail = boxToTailDict[box];
 
+                Sequence s = DOTween.Sequence();
+                s.Append(boxToTailDict[box].transform.DOScaleY(0f, 0.5f));
+                s.Append(box.transform.DOMoveY(5f, 0.5f));
+                boxToTailDict.Remove(box);
+                Debug.Log(head.title + " is destroying children");
+                Destroy(box, s.Duration());
 
+            }
 
-        //    }
-        //    if (t.parent.parent) {
-        //        currentTasks = t.parent.parent.children;
-        //    }
+            
+        }
 
-        //    return;
-
-        //}
-
+        taskToButtonDict.Clear();
 
     }
 }
