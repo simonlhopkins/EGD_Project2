@@ -26,6 +26,7 @@ public class Task : MonoBehaviour
         renderScriptableObject();
 
         TaskSO testHead = ScriptableObject.CreateInstance<TaskSO>();
+        testHead.title = "test head";
         TaskSO testc1 = ScriptableObject.CreateInstance<TaskSO>();
         testc1.title = "c1";
         TaskSO testc2 = ScriptableObject.CreateInstance<TaskSO>();

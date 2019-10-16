@@ -30,6 +30,11 @@ public class UIManager : MonoBehaviour
             
             return;
         }
+        foreach (TaskSO task in tasksToDisplay) {
+            if (taskToButtonDict.ContainsKey(task)) {
+                return;
+            }
+        }
 
         currentTasks = tasksToDisplay;
         Vector3 pointToSpawn = findValidPositionForPopup(position);
@@ -132,45 +137,62 @@ public class UIManager : MonoBehaviour
     }
 
     public bool allChildrenComplete(TaskSO task) {
-        
+
+
+        bool hasIncomplete = false;
         foreach (TaskSO t in task.children)
         {
+            Debug.Log(t.title + " is complete: " + t.complete);
             if (!t.complete)
             {
                 return false;
             }
             allChildrenComplete(t);
+            
+            
         }
         return true;
+        
+        
     }
 
     public void updateCompleteness(TaskSO head) {
         if (head == null) {
+            Debug.Log("head is null");
             return;
         }
         //if all of the children are complete, delete the child gameobject
         if (allChildrenComplete(head)) {
+            head.complete = true;
             if (taskToButtonDict.ContainsKey(head))
             {
                 taskToButtonDict[head].GetComponent<Image>().color = Color.green;
-                if (head.children.Count != 0) {
-                    GameObject wrapperToDelete = null;
-                    foreach (TaskSO child in head.children) {
-                        if (wrapperToDelete != taskToButtonDict[child].transform.parent.gameObject) {
-                            wrapperToDelete = taskToButtonDict[child].transform.parent.gameObject;
-                        }
-                        taskToButtonDict.Remove(child);
-                    }
-                    Sequence s = DOTween.Sequence();
-                    s.Append(boxToTailDict[wrapperToDelete].transform.DOScaleY(0f, 0.5f));
-                    s.Append(wrapperToDelete.transform.DOMoveY(5f, 0.5f));
-                    boxToTailDict.Remove(wrapperToDelete);
-                    Destroy(wrapperToDelete, s.Duration());
-                }
+                
             }
-            else {
+            else
+            {
                 Debug.Log("isn't in dict: " + head.title);
             }
+            if (head.children.Count != 0)
+            {
+                //check siblings
+                GameObject wrapperToDelete = null;
+                foreach (TaskSO child in head.children)
+                {
+                    if (wrapperToDelete != taskToButtonDict[child].transform.parent.gameObject)
+                    {
+                        wrapperToDelete = taskToButtonDict[child].transform.parent.gameObject;
+                    }
+                    taskToButtonDict.Remove(child);
+                }
+                Sequence s = DOTween.Sequence();
+                s.Append(boxToTailDict[wrapperToDelete].transform.DOScaleY(0f, 0.5f));
+                s.Append(wrapperToDelete.transform.DOMoveY(5f, 0.5f));
+                boxToTailDict.Remove(wrapperToDelete);
+                Debug.Log(head.title + " is destroying children");
+                Destroy(wrapperToDelete, s.Duration());
+            }
+            
             
             updateCompleteness(head.parent);
         }
@@ -182,10 +204,9 @@ public class UIManager : MonoBehaviour
         //{
         //    return;
         //}
-        t.complete = true;
+        //t.complete = allChildrenComplete(t);
 
         updateCompleteness(t);
-        Debug.Log(t.children);
         generateTaskPopup(t.children, Input.mousePosition);
 
         //iterate down to see if all of the chikdren are complete
