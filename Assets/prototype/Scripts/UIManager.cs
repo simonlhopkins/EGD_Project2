@@ -126,7 +126,17 @@ public class UIManager : MonoBehaviour
         _newButton.GetComponentInChildren<Text>().text = task.title;
         if (!taskToButtonDict.ContainsKey(task)) {
             taskToButtonDict.Add(task, _newButton);
+            if (task.complete)
+            {
+                taskToButtonDict[task].GetComponent<Image>().color = Color.green;
+                if (task.children.Count != 0) {
+                    if (!allChildrenComplete(task)) {
+                        taskToButtonDict[task].GetComponent<Image>().color = Color.yellow;
+                    }
+                }
+            }
         }
+        
         
 
         //_newButton.GetComponent<RectTransform>().DOAnchorPos(originalPos, 1f);
@@ -168,27 +178,39 @@ public class UIManager : MonoBehaviour
 
         //if all of the children are completed
         if (allChildrenComplete(head)) {
-            head.complete = true;
+            //if (head.parent == null)
+            //{
+            //    Debug.Log("this path is exhausted");
+            //    return;
+            //}
             if (taskToButtonDict.ContainsKey(head))
             {
                 taskToButtonDict[head].GetComponent<Image>().color = Color.green;
                 
             }
+
             else
             {
                 Debug.Log("isn't in dict: " + head.title);
             }
             if (head.children.Count != 0)
             {
+                
                 //check siblings
                 GameObject wrapperToDelete = null;
                 foreach (TaskSO child in head.children)
                 {
+                    if (!taskToButtonDict.ContainsKey(child)) {
+                        continue;
+                    }
                     if (wrapperToDelete != taskToButtonDict[child].transform.parent.gameObject)
                     {
                         wrapperToDelete = taskToButtonDict[child].transform.parent.gameObject;
                     }
                     taskToButtonDict.Remove(child);
+                }
+                if (wrapperToDelete == null) {
+                    return;
                 }
                 Sequence s = DOTween.Sequence();
                 s.Append(boxToTailDict[wrapperToDelete].transform.DOScaleY(0f, 0.5f));
@@ -204,11 +226,15 @@ public class UIManager : MonoBehaviour
     }
     public void setNewHead(TaskSO t) {
         //need to get siblings of task
-
+        if (allChildrenComplete(t)) {
+            Debug.Log("All paths exhuasted on this node");
+            return;
+        }
         t.complete = true;
         if (taskToButtonDict.ContainsKey(t))
         {
-            taskToButtonDict[t].GetComponent<Image>().color = Color.green;
+            
+            taskToButtonDict[t].GetComponent<Image>().color = Color.yellow;
 
         }
         updateCompleteness(t);
