@@ -13,6 +13,8 @@ public class TaskSO : ScriptableObject
     public string achievementText;
     public List<TaskSO> children = new List<TaskSO>();
     public bool complete = false;
+    public bool hasBeenVisited = false;
+    public float timeToAppear = 4f;
 
 }
 

@@ -50,8 +50,9 @@ public class UIManager : MonoBehaviour
         
         List<GameObject> renderedButtons = new List<GameObject>();
         foreach (TaskSO task in tasksToDisplay) {
-
+            
             GameObject newButton = createButton(task, _popupContainer.transform);
+
             renderedButtons.Add(newButton);
 
         }
@@ -125,7 +126,12 @@ public class UIManager : MonoBehaviour
         GameObject _newButton = Instantiate(taskButton);
         //_newButton.transform.position = Vector3.zero;
         _newButton.transform.SetParent(parent, true);
-        _newButton.GetComponentInChildren<Text>().text = task.title;
+        IEnumerator co = showText(task);
+        StartCoroutine(co);
+        if (task.timeToAppear <= 0) {
+            _newButton.GetComponentInChildren<Text>().text = task.title;
+        }
+        
         if (!taskToButtonDict.ContainsKey(task)) {
             taskToButtonDict.Add(task, _newButton);
             //when you are creating a new button
@@ -139,13 +145,28 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-        
-        
+
 
         //_newButton.GetComponent<RectTransform>().DOAnchorPos(originalPos, 1f);
         _newButton.GetComponent<Button>().onClick.AddListener(delegate { setNewHead(task); });
 
         return _newButton;
+    }
+
+    public IEnumerator showText(TaskSO task) {
+        if (task.hasBeenVisited) {
+            yield return 0f;
+        }
+        task.hasBeenVisited = true;
+        while (task.timeToAppear > 0) {
+            task.timeToAppear -= Time.deltaTime;
+            yield return 0;
+        }
+        if (taskToButtonDict.ContainsKey(task)) {
+            taskToButtonDict[task].GetComponentInChildren<Text>().text = task.title;
+        }
+
+
     }
 
     public bool allChildrenComplete(TaskSO task) {
@@ -223,6 +244,10 @@ public class UIManager : MonoBehaviour
     }
     public void setNewHead(TaskSO t) {
         //need to get siblings of task
+        if (t.timeToAppear > 0) {
+            Debug.Log(t.timeToAppear);
+            return;
+        }
         if (allChildrenComplete(t)) {
             Debug.Log("All paths exhuasted on this node");
             return;
