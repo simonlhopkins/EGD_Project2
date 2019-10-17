@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour
     //creates, positions, and adds buttons with corresponding tasks
     public void generateTaskPopup(List<TaskSO> tasksToDisplay, Vector3 position) {
         if (tasksToDisplay.Count == 0) {
-            
+
             return;
         }
         foreach (TaskSO task in tasksToDisplay) {
@@ -38,22 +38,23 @@ public class UIManager : MonoBehaviour
         }
 
         currentTasks = tasksToDisplay;
-        
+
         GameObject _popupContainer = Instantiate(popupContainer);
 
-        
+
 
         _popupContainer.transform.SetParent(canvas.transform, false);
 
 
-        
 
-        
+
+
         List<GameObject> renderedButtons = new List<GameObject>();
         foreach (TaskSO task in tasksToDisplay) {
-            
-            GameObject newButton = createButton(task, _popupContainer.transform);
 
+            GameObject newButton = createButton(task, _popupContainer.transform);
+            //setButtonAlpha(newButton, 1f);
+            Debug.Log("setting alpha of..." + newButton.name);
             renderedButtons.Add(newButton);
 
         }
@@ -64,29 +65,31 @@ public class UIManager : MonoBehaviour
             Vector3 originalPos = button.GetComponent<RectTransform>().position;
             //button.transform.position = originalPos + (Vector3.right * 300f);
             Sequence s = DOTween.Sequence();
-            
+
             //s.Append(button.GetComponent<Image>().material.DOFade(1f, 1f));
             s.Append(button.transform.DOShakeRotation(1f, 10f).SetLoops(int.MaxValue));
-            
+
             i++;
         }
 
         Vector3 pointToSpawn = findValidPositionForPopup(position, _popupContainer);
-        GameObject _tail = drawTail(position, pointToSpawn, canvas.transform);
-        boxToTailDict.Add(_popupContainer, _tail);
-        _popupContainer.transform.position = pointToSpawn;
+        //GameObject _tail = drawTail(position, pointToSpawn, canvas.transform);
+        //boxToTailDict.Add(_popupContainer, _tail);
+        _popupContainer.transform.position = pointToSpawn + Random.insideUnitSphere.normalized * 200f;
+        _popupContainer.transform.DOMove(pointToSpawn, 1f);
 
     }
 
-    public void makeAllTransparent(GameObject head) {
-        //if(head.GetComponent<>)
+    public void setButtonAlpha(GameObject button, float alpha) {
+        button.GetComponent<Image>().DOFade(alpha, 0f);
+        button.GetComponentInChildren<TMP_Text>().DOFade(alpha, 0f);
     }
 
     //returns ScreenPoint
     public Vector3 findValidPositionForPopup(Vector2 _mouseDownPos, GameObject _popup) {
         bool foundValidPoint = false;
         Vector3 tryPoint = Vector3.zero;
-                
+
         float canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
         float canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
         float scaler = Screen.width / canvasWidth;
@@ -97,7 +100,7 @@ public class UIManager : MonoBehaviour
             //try point relative to the screen
             tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + Random.insideUnitCircle.normalized * 200 * scaler;
             Debug.Log("mouse pos" + _mouseDownPos);
-            Debug.Log("x bounds: " + (Screen.width - popupRect.width * scaler / 2f) + " -> " + (popupRect.width*scaler) / 2f);
+            Debug.Log("x bounds: " + (Screen.width - popupRect.width * scaler / 2f) + " -> " + (popupRect.width * scaler) / 2f);
             Debug.Log("y bounds: " + (Screen.height - popupRect.height * scaler / 2f) + " -> " + popupRect.height * scaler / 2f);
             Debug.Log("trypoint: " + tryPoint);
             if (tryPoint.x < (Screen.width - popupRect.width * scaler / 2f) && tryPoint.x > (popupRect.width * scaler) / 2f)
@@ -112,8 +115,8 @@ public class UIManager : MonoBehaviour
         }
 
         return tryPoint;
-        
-        
+
+
     }
 
     //takes 2 screen space args
@@ -123,12 +126,13 @@ public class UIManager : MonoBehaviour
         tail.transform.SetParent(_parent, false);
 
         tail.transform.position = endPos;
-        
+
         Vector3 vecToTarg = Vector3.Scale(endPos - startPos, new Vector3(1f, 1f, 0f));
         tail.AddComponent<LayoutElement>().ignoreLayout = true;
         tail.transform.rotation = Quaternion.LookRotation(Vector3.forward, vecToTarg);
         Image i = tail.AddComponent<Image>();
         i.sprite = tailSprite;
+        i.color = Color.white;
         RectTransform rt = tail.GetComponent<RectTransform>();
         rt.pivot = new Vector2(0.5f, 1f);
         rt.localScale = new Vector3(0.5f, vecToTarg.magnitude / rt.rect.height, 1f);
@@ -141,10 +145,10 @@ public class UIManager : MonoBehaviour
         //rt.localScale = new Vector3(0.1f, vecToTarg.magnitude / rt.rect.height, 1f);
     }
 
-    
+
 
     public GameObject createButton(TaskSO task, Transform parent) {
-        
+
         GameObject _newButton = Instantiate(taskButton);
         //_newButton.transform.position = Vector3.zero;
         _newButton.transform.SetParent(parent, true);
@@ -153,7 +157,7 @@ public class UIManager : MonoBehaviour
         if (task.timeToAppear <= 0) {
             _newButton.GetComponentInChildren<TMP_Text>().text = task.title;
         }
-        
+
         if (!taskToButtonDict.ContainsKey(task)) {
             taskToButtonDict.Add(task, _newButton);
             //when you are creating a new button
@@ -216,6 +220,25 @@ public class UIManager : MonoBehaviour
             return;
         }
 
+        if (head.parent != null) {
+            foreach (TaskSO t in head.parent.children)
+            {
+                if (t == head)
+                {
+                    continue;
+                }
+                if (taskToButtonDict.ContainsKey(t))
+                {
+                    foreach (TaskSO childOfSibling in t.children) {
+                        deleteSubTree(childOfSibling);
+                    }
+                }
+
+            }
+
+        }
+        
+
         //if all of the children are completed
         if (allChildrenComplete(head)) {
 
@@ -223,7 +246,7 @@ public class UIManager : MonoBehaviour
             if (taskToButtonDict.ContainsKey(head))
             {
                 taskToButtonDict[head].GetComponent<Image>().color = Color.green;
-                
+
             }
 
             else
@@ -232,7 +255,7 @@ public class UIManager : MonoBehaviour
             }
             if (head.children.Count != 0)
             {
-                
+
                 //check siblings
                 GameObject wrapperToDelete = null;
                 foreach (TaskSO child in head.children)
@@ -251,19 +274,70 @@ public class UIManager : MonoBehaviour
                 }
 
                 Sequence s = DOTween.Sequence();
-                s.Append(boxToTailDict[wrapperToDelete].transform.DOScaleY(0f, 0.5f));
+                //s.Append(boxToTailDict[wrapperToDelete].transform.DOScaleY(0f, 0.5f));
                 s.Append(wrapperToDelete.transform.DOMoveY(5f, 0.5f));
-                GameObject tailToDelete = boxToTailDict[wrapperToDelete];
-                
-                boxToTailDict.Remove(wrapperToDelete);
-                Destroy(tailToDelete);
+                //GameObject tailToDelete = boxToTailDict[wrapperToDelete];
+
+                //boxToTailDict.Remove(wrapperToDelete);
+                //Destroy(tailToDelete);
                 Destroy(wrapperToDelete, s.Duration());
             }
-            
-            
+
+
             updateCompleteness(head.parent);
         }
     }
+
+    public void deleteIfNotInPath(TaskSO head, List<TaskSO> pathToHead) {
+
+        pathToHead.Add(head);
+        foreach (TaskSO t in head.children) {
+
+        }
+        
+
+        if (head.parent == null) {
+
+        }
+
+
+    }
+
+    public void deleteSubTree(TaskSO _head) {
+        Debug.Log(_head);
+        if (_head == null) {
+            return;
+        }
+        if (!taskToButtonDict.ContainsKey(_head))
+        {
+            return;
+        }
+        foreach (TaskSO t in _head.children) {
+            
+            deleteSubTree(t);
+        }
+            
+            
+        
+
+        GameObject boxToDestroy = null;
+        if (taskToButtonDict[_head] != null)
+        {
+            boxToDestroy = taskToButtonDict[_head].transform.parent.gameObject;
+        }
+        taskToButtonDict.Remove(_head);
+        
+
+
+        //s.Append(box.transform.DOMoveY(5f, 0.5f));
+        if (boxToDestroy != null) {
+            Sequence s = DOTween.Sequence();
+            Destroy(boxToDestroy, s.Duration());
+        }
+        
+        
+    }
+
     public void setNewHead(TaskSO t) {
         //need to get siblings of task
         if (t.timeToAppear > 0) {
@@ -294,22 +368,20 @@ public class UIManager : MonoBehaviour
         foreach (TaskSO key in taskToButtonDict.Keys) {
             GameObject box = taskToButtonDict[key].transform.parent.gameObject;
             //if the box is still there
-            if (boxToTailDict.ContainsKey(box)) {
                 //remove box and tail
-                GameObject tail = boxToTailDict[box];
 
-                Sequence s = DOTween.Sequence();
-                s.Append(boxToTailDict[box].transform.DOScaleY(0f, 0.5f));
-                s.Append(box.transform.DOMoveY(5f, 0.5f));
-                GameObject tailToDelete = boxToTailDict[box];
+            Sequence s = DOTween.Sequence();
+            //s.Append(boxToTailDict[box].transform.DOScaleY(0f, 0.5f));
+            s.Append(box.transform.DOMoveY(5f, 0.5f));
+            //GameObject tailToDelete = boxToTailDict[box];
 
-                boxToTailDict.Remove(box);
-                Destroy(tailToDelete);
-                boxToTailDict.Remove(box);
-                Debug.Log(head.title + " is destroying children");
-                Destroy(box, s.Duration());
+            //boxToTailDict.Remove(box);
+            //Destroy(tailToDelete);
+            //boxToTailDict.Remove(box);
+            Debug.Log(head.title + " is destroying children");
+            Destroy(box, s.Duration());
 
-            }
+            
 
             
         }

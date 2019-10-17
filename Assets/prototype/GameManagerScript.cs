@@ -14,6 +14,7 @@ public class GameManagerScript : MonoBehaviour
     {
         uiManager = GetComponent<UIManager>();
         head = null;
+
     }
 
     // Update is called once per frame
@@ -30,11 +31,13 @@ public class GameManagerScript : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null)
             {
-                uiManager.clearAllPopups(head);
+                
+                uiManager.deleteSubTree(head);
                 head = hit.collider.gameObject.GetComponent<Task>().head;
                 uiManager.setNewHead(head);
             }
             else {
+                Debug.Log("clearing popups");
                 uiManager.clearAllPopups(head);
             }
         }

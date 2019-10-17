@@ -51,6 +51,7 @@ public class Task : MonoBehaviour
 
 
         head = new GameObject().AddComponent<TextToTreeParser>().generateTree("Assets/prototype/textFiles/test0.txt");
+
         //foreach(TaskSO task in nodes)
         //{
         //    task.complete = false;
