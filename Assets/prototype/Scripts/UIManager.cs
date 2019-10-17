@@ -146,6 +146,7 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        _newButton.GetComponent<RectTransform>().localScale = Vector3.one;
 
         //_newButton.GetComponent<RectTransform>().DOAnchorPos(originalPos, 1f);
         _newButton.GetComponent<Button>().onClick.AddListener(delegate { setNewHead(task); });
@@ -185,8 +186,6 @@ public class UIManager : MonoBehaviour
         }
 
         return allComplete;
-        
-        
     }
 
     public void updateCompleteness(TaskSO head) {
@@ -229,7 +228,6 @@ public class UIManager : MonoBehaviour
                     return;
                 }
 
-                //removeal
                 Sequence s = DOTween.Sequence();
                 s.Append(boxToTailDict[wrapperToDelete].transform.DOScaleY(0f, 0.5f));
                 s.Append(wrapperToDelete.transform.DOMoveY(5f, 0.5f));
