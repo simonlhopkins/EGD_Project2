@@ -1,3 +1,12 @@
+Assets/prototype/sprites/background | example sentance | achievement
+	Assets/prototype/sprites/bookOnDesk | you | achievement
+		Assets/prototype/sprites/frameOnWall | can | achievement
+			Assets/prototype/sprites/triangle | do | achievement
+				Assets/prototype/sprites/background | this | achievement
+					Assets/prototype/sprites/bookOnDesk | remember | achievement
+						Assets/prototype/sprites/frameOnWall | to | achievement
+							Assets/prototype/sprites/triangle | breath | achievement
+Assets/prototype/sprites/background | line1 | achievement
 Assets/prototype/sprites/background | line1 | achievement
 	Assets/prototype/sprites/bookOnDesk | line2 | achievement
 		Assets/prototype/sprites/frameOnWall | line3 | achievement
