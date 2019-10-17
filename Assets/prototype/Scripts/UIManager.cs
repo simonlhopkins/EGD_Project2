@@ -220,13 +220,14 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        if (head.parent != null) {
+        if (head.parent != null && head.children.Count!=0) {
             foreach (TaskSO t in head.parent.children)
             {
                 if (t == head)
                 {
                     continue;
                 }
+                
                 if (taskToButtonDict.ContainsKey(t))
                 {
                     foreach (TaskSO childOfSibling in t.children) {
@@ -304,18 +305,23 @@ public class UIManager : MonoBehaviour
     }
 
     public void deleteSubTree(TaskSO _head) {
-        Debug.Log(_head);
+        //if (_head == null) {
+        //    return;
+        //}
         if (_head == null) {
+            Debug.Log("return");
             return;
+        }
+        foreach (TaskSO t in _head.children)
+        {
+
+            deleteSubTree(t);
         }
         if (!taskToButtonDict.ContainsKey(_head))
         {
             return;
         }
-        foreach (TaskSO t in _head.children) {
-            
-            deleteSubTree(t);
-        }
+        
             
             
         
@@ -332,6 +338,7 @@ public class UIManager : MonoBehaviour
         //s.Append(box.transform.DOMoveY(5f, 0.5f));
         if (boxToDestroy != null) {
             Sequence s = DOTween.Sequence();
+            s.Append(boxToDestroy.transform.DOMoveY(5f, 0.5f));
             Destroy(boxToDestroy, s.Duration());
         }
         
@@ -362,31 +369,5 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void clearAllPopups(TaskSO head) {
-        //inefficient, iterate over entire dict
-
-        foreach (TaskSO key in taskToButtonDict.Keys) {
-            GameObject box = taskToButtonDict[key].transform.parent.gameObject;
-            //if the box is still there
-                //remove box and tail
-
-            Sequence s = DOTween.Sequence();
-            //s.Append(boxToTailDict[box].transform.DOScaleY(0f, 0.5f));
-            s.Append(box.transform.DOMoveY(5f, 0.5f));
-            //GameObject tailToDelete = boxToTailDict[box];
-
-            //boxToTailDict.Remove(box);
-            //Destroy(tailToDelete);
-            //boxToTailDict.Remove(box);
-            Debug.Log(head.title + " is destroying children");
-            Destroy(box, s.Duration());
-
-            
-
-            
-        }
-
-        taskToButtonDict.Clear();
-
-    }
+    
 }

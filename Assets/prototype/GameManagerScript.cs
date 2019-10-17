@@ -37,14 +37,11 @@ public class GameManagerScript : MonoBehaviour
                 uiManager.setNewHead(head);
             }
             else {
-                Debug.Log("clearing popups");
-                uiManager.clearAllPopups(head);
+                uiManager.deleteSubTree(head);
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            uiManager.clearAllPopups(head);
-        }
+
     }
 
     
