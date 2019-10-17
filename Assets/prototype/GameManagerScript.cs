@@ -22,11 +22,12 @@ public class GameManagerScript : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
+            
+            Debug.Log("screenWidth" + Screen.width);
             if (EventSystem.current.IsPointerOverGameObject()) {
                 return;
             }
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            uiManager.findValidPositionForPopup(Input.mousePosition);
             if (hit.collider != null)
             {
                 uiManager.clearAllPopups(head);

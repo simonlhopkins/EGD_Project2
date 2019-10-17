@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 //UI Manager handles all behavior for UI on the screen. However, these functions are called in
 //GameManager
@@ -37,15 +38,15 @@ public class UIManager : MonoBehaviour
         }
 
         currentTasks = tasksToDisplay;
-        Vector3 pointToSpawn = findValidPositionForPopup(position);
-        GameObject _tail = drawTail(position, pointToSpawn, canvas.transform);
+        
         GameObject _popupContainer = Instantiate(popupContainer);
 
-        boxToTailDict.Add(_popupContainer, _tail);
+        
 
         _popupContainer.transform.SetParent(canvas.transform, false);
+
+
         
-        _popupContainer.transform.position = pointToSpawn;
 
         
         List<GameObject> renderedButtons = new List<GameObject>();
@@ -69,31 +70,48 @@ public class UIManager : MonoBehaviour
             
             i++;
         }
+
+        Vector3 pointToSpawn = findValidPositionForPopup(position, _popupContainer);
+        GameObject _tail = drawTail(position, pointToSpawn, canvas.transform);
+        boxToTailDict.Add(_popupContainer, _tail);
+        _popupContainer.transform.position = pointToSpawn;
+
     }
 
+    public void makeAllTransparent(GameObject head) {
+        //if(head.GetComponent<>)
+    }
 
     //returns ScreenPoint
-    public Vector3 findValidPositionForPopup(Vector2 _mouseDownPos) {
+    public Vector3 findValidPositionForPopup(Vector2 _mouseDownPos, GameObject _popup) {
         bool foundValidPoint = false;
         Vector3 tryPoint = Vector3.zero;
                 
-        float screenHeight = Camera.main.orthographicSize;
-        float screenWidth = screenHeight * Camera.main.aspect;
+        float canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
+        float canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
+        float scaler = Screen.width / canvasWidth;
+        Rect popupRect = _popup.GetComponent<RectTransform>().rect;
+        tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + Random.insideUnitCircle.normalized * 10f;
         while (!foundValidPoint)
         {
-            Vector3 mouseWP = Camera.main.ScreenToWorldPoint(_mouseDownPos);
-            tryPoint = new Vector2(mouseWP.x, mouseWP.y) + Random.insideUnitCircle.normalized*2f;
-            if (tryPoint.x > -screenWidth && tryPoint.x < screenWidth) {
-                if (tryPoint.y > -screenHeight && tryPoint.y < screenHeight)
+            //try point relative to the screen
+            tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + Random.insideUnitCircle.normalized * 200 * scaler;
+            Debug.Log("mouse pos" + _mouseDownPos);
+            Debug.Log("x bounds: " + (Screen.width - popupRect.width * scaler / 2f) + " -> " + (popupRect.width*scaler) / 2f);
+            Debug.Log("y bounds: " + (Screen.height - popupRect.height * scaler / 2f) + " -> " + popupRect.height * scaler / 2f);
+            Debug.Log("trypoint: " + tryPoint);
+            if (tryPoint.x < (Screen.width - popupRect.width * scaler / 2f) && tryPoint.x > (popupRect.width * scaler) / 2f)
+            {
+                if (tryPoint.y < (Screen.height - popupRect.height * scaler / 2f) && tryPoint.y > popupRect.height * scaler / 2f)
                 {
                     foundValidPoint = true;
                 }
             }
-            
+
 
         }
 
-        return Camera.main.WorldToScreenPoint(tryPoint);
+        return tryPoint;
         
         
     }
@@ -106,15 +124,19 @@ public class UIManager : MonoBehaviour
 
         tail.transform.position = endPos;
         
-        Vector3 vecToTarg = Vector3.Scale((endPos - startPos), new Vector3(1f, 1f, 0f));
+        Vector3 vecToTarg = Vector3.Scale(endPos - startPos, new Vector3(1f, 1f, 0f));
         tail.AddComponent<LayoutElement>().ignoreLayout = true;
         tail.transform.rotation = Quaternion.LookRotation(Vector3.forward, vecToTarg);
         Image i = tail.AddComponent<Image>();
         i.sprite = tailSprite;
         RectTransform rt = tail.GetComponent<RectTransform>();
         rt.pivot = new Vector2(0.5f, 1f);
-        rt.localScale = new Vector3(0.5f, 0f, 1f);
-        rt.DOScaleY(vecToTarg.magnitude / rt.rect.height, 0.5f);
+        rt.localScale = new Vector3(0.5f, vecToTarg.magnitude / rt.rect.height, 1f);
+        //rt.DOScaleY(vecToTarg.magnitude / rt.rect.height, 0.5f);
+        //Debug.Log(startPos + "<start pos, end pos>" + endPos);
+        //Debug.Log(Input.mousePosition);
+        //Debug.Log(rt.rect.height);
+        //Debug.Log(vecToTarg.magnitude);
         return tail;
         //rt.localScale = new Vector3(0.1f, vecToTarg.magnitude / rt.rect.height, 1f);
     }
@@ -129,7 +151,7 @@ public class UIManager : MonoBehaviour
         IEnumerator co = showText(task);
         StartCoroutine(co);
         if (task.timeToAppear <= 0) {
-            _newButton.GetComponentInChildren<Text>().text = task.title;
+            _newButton.GetComponentInChildren<TMP_Text>().text = task.title;
         }
         
         if (!taskToButtonDict.ContainsKey(task)) {
@@ -164,7 +186,7 @@ public class UIManager : MonoBehaviour
             yield return 0;
         }
         if (taskToButtonDict.ContainsKey(task)) {
-            taskToButtonDict[task].GetComponentInChildren<Text>().text = task.title;
+            taskToButtonDict[task].GetComponentInChildren<TMP_Text>().text = task.title;
         }
 
 
@@ -231,8 +253,10 @@ public class UIManager : MonoBehaviour
                 Sequence s = DOTween.Sequence();
                 s.Append(boxToTailDict[wrapperToDelete].transform.DOScaleY(0f, 0.5f));
                 s.Append(wrapperToDelete.transform.DOMoveY(5f, 0.5f));
+                GameObject tailToDelete = boxToTailDict[wrapperToDelete];
+                
                 boxToTailDict.Remove(wrapperToDelete);
-                Debug.Log(head.title + " is destroying children");
+                Destroy(tailToDelete);
                 Destroy(wrapperToDelete, s.Duration());
             }
             
@@ -277,6 +301,10 @@ public class UIManager : MonoBehaviour
                 Sequence s = DOTween.Sequence();
                 s.Append(boxToTailDict[box].transform.DOScaleY(0f, 0.5f));
                 s.Append(box.transform.DOMoveY(5f, 0.5f));
+                GameObject tailToDelete = boxToTailDict[box];
+
+                boxToTailDict.Remove(box);
+                Destroy(tailToDelete);
                 boxToTailDict.Remove(box);
                 Debug.Log(head.title + " is destroying children");
                 Destroy(box, s.Duration());

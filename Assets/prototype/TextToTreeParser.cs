@@ -103,7 +103,6 @@ public class TextToTreeParser : MonoBehaviour {
             string[] info = line.Split('|');
 
             // update all information for the new TaskSO from the text file
-            Debug.Log("current parent: " + currentParent.title);
             mostRecentNode = ScriptableObject.CreateInstance<TaskSO>();
             mostRecentNode.parent = currentParent;
             currentParent.children.Add(mostRecentNode);
