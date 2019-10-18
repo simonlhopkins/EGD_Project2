@@ -1,0 +1,7 @@
+Sprites/Achievements/Workin' It!.png | Water the Plants | Good Hydration | S
+	Sprites/Achievements/Workin' It!.png | Look for Dead Ends | Just a Trim
+	Sprites/Achievements/Workin' It!.png | Open the Curtains | Good Morning Sunshine
+		Sprites/Achievements/Workin' It!.png | Look Outside | Weather Channel
+		Sprites/Achievements/Workin' It!.png | Open the Window | Fresh Air
+			Sprites/Achievements/Workin' It!.png | Take a Walk | Walkabout | L
+				Sprites/Achievements/Workin' It!.png | Finish your Workout | Workin' it! | M

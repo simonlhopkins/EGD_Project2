@@ -1,0 +1,28 @@
+Sprites/Achievements/ComingHome | Picked up a good book | Literate | N
+	Sprites/Achievements/ComingHome | Let's give them something to talk about | Check this out! | M
+		Sprites/Achievements/ComingHome | Try not to let the dread set in | Oh No | S
+	Sprites/Achievements/ComingHome | The Twitter-verse is going to love this | Online Discourse | S
+Sprites/Achievements/ComingHome | Clean enough to eat off of! | Squeaky Clean | S
+	Sprites/Achievements/ComingHome | Need energy to spend energy | The Most Important Meal | M
+		Sprites/Achievements/ComingHome | What, you were just going to leave it there? | Gonna Munch | N
+	Sprites/Achievements/ComingHome | We're cooking up a strom! | Fine Dining Experience | S
+		Sprites/Achievements/ComingHome | Only the finest ingredients | Planning Ahead | S
+Sprites/Achievements/ComingHome | Drink water | Stay Hydrated | N
+	Sprites/Achievements/ComingHome | Its a vicious cycle | Water Cycle | S
+Sprites/Achievements/ComingHome | That was bugging you | Straight and Narrow | N
+	Sprites/Achievements/ComingHome | The Good Old Days | We grew up too fast | N
+Sprites/Achievements/ComingHome | Live, my children! | Good Hydration | S
+	Sprites/Achievements/ComingHome | Your plant looks fabulous! | Just a Trim | N
+	Sprites/Achievements/ComingHome | The world says hello! | Good Morning Sunshine | N
+		Sprites/Achievements/ComingHome | It's more accurate this way | Weather Channel | N
+		Sprites/Achievements/ComingHome | Helps you wake up | Fresh Air | N
+Sprites/Achievements/ComingHome | Anytime, anywhere, right in your pocket | Connected | N
+	Sprites/Achievements/ComingHome | Keeping up with the kids these days | Staying Hip | S
+		Sprites/Achievements/ComingHome | "Yeet!" | Word of the Day | N
+			Sprites/Achievements/ComingHome | Tell me what's a-happening | What's the Buzz? | S
+				Sprites/Achievements/ComingHome | There's just so many shows now! | Netflix and Chill | N
+	Sprites/Achievements/ComingHome | Hey good lookin' | Influencer | S
+	Sprites/Achievements/ComingHome | It's nice to check in. | Mother Knows Best | M
+		Sprites/Achievements/ComingHome | A short flight away | Coming home | S
+	Sprites/Achievements/ComingHome | Phone a friend is so outdated. | Keeping in Touch | M
+Sprites/Achievements/ComingHome | I loooooove trash! | Visit Oscar | M

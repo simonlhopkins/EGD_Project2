@@ -21,6 +21,7 @@ public class TextToTreeParser : MonoBehaviour {
 
     public TaskSO generateTree(string _fileName) {
         TaskSO root = ScriptableObject.CreateInstance<TaskSO>();
+        root.parent = null;
 
         reader = new StreamReader("Assets/Resources/textFiles/"+_fileName);
 
@@ -63,25 +64,25 @@ public class TextToTreeParser : MonoBehaviour {
             mostRecentNode.title = info[1];
             mostRecentNode.achievementText = info[2];
 
+            if(info.Length > 3) {
+                if(info[3] == "S") {
+                    mostRecentNode.timeToAppear = 6;
+                } else if (info[3] == "M") {
+                    mostRecentNode.timeToAppear = 15;
+                } else if (info[3] == "L") {
+                    mostRecentNode.timeToAppear = 30;
+                }                
+            } else {
+                mostRecentNode.timeToAppear = 0;
+            }
+
+            TaskSO getAllParentsTime = mostRecentNode;
+            while(getAllParentsTime = getAllParentsTime.parent) {
+                mostRecentNode.timeToAppear += getAllParentsTime.timeToAppear;
+            }
+
             previousTabCount = tabCount; // update the previous tab count to the tab count of the line just specified
         }
-
-        // for testing if it is parsing properly
-        //foreach (TaskSO child in root.children)
-        //{
-        //    foreach (TaskSO c in child.children)
-        //    {
-        //        Debug.Log("Parent: " + child.title + " and Child: " + c.title);
-        //        foreach (TaskSO c2 in c.children)
-        //        {
-        //            Debug.Log("Parent: " + c.title + " and Child: " + c2.title);
-        //            foreach (TaskSO c3 in c2.children)
-        //            {
-        //                Debug.Log("Parent: " + c2.title + " and Child: " + c3.title);
-        //            }
-        //        }
-        //    }
-        //}
 
         root.timeToAppear = 0f;
         return root;

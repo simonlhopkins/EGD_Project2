@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 0}
-  filePath: test0.txt
+  filePath: frameText.txt
 --- !u!4 &276665887
 Transform:
   m_ObjectHideFlags: 0
@@ -343,6 +343,7 @@ MonoBehaviour:
   achievementContainerPanel: {fileID: 721653235}
   achievementPanelPrefab: {fileID: 4036469950228941883, guid: 94ea45579d6dc42b5a9404acfadc5944,
     type: 3}
+  achievementAnimImagePrefab: {fileID: 0}
   tailSprite: {fileID: 21300000, guid: 5518bfbf02de640a1a28b67f664f3b97, type: 3}
   currentTasks: []
   gm: {fileID: 0}
@@ -520,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 0}
-  filePath: mugText.txt
+  filePath: waterText.txt
 --- !u!4 &480484135
 Transform:
   m_ObjectHideFlags: 0
@@ -829,7 +830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 0}
-  filePath: test0.txt
+  filePath: bookText.txt
 --- !u!4 &2064981210
 Transform:
   m_ObjectHideFlags: 0
