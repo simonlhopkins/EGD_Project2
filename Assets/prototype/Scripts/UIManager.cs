@@ -36,9 +36,11 @@ public class UIManager : MonoBehaviour
 
             return;
         }
+
+        //this shouldn't ever be entered, but checks to make sure there isn't already
+        //a duplicate task on screen
         foreach (TaskSO task in tasksToDisplay) {
             if (taskToButtonDict.ContainsKey(task)) {
-                Debug.Log(task.title + " aready exists");
                 return;
             }
         }
@@ -55,26 +57,22 @@ public class UIManager : MonoBehaviour
         foreach (TaskSO task in tasksToDisplay) {
 
             GameObject newButton = createButton(task, _popupContainer.transform);
-            //setButtonAlpha(newButton, 1f);
             renderedButtons.Add(newButton);
 
         }
+
+        //adding all of the buttons and then doing one force update is more efficient than
+        //doing it after every frame.
         Canvas.ForceUpdateCanvases();
-        int i = 0;
         foreach (GameObject button in renderedButtons) {
             Vector3 originalPos = button.GetComponent<RectTransform>().position;
-            //button.transform.position = originalPos + (Vector3.right * 300f);
             Sequence s = DOTween.Sequence();
-
-            //s.Append(button.GetComponent<Image>().material.DOFade(1f, 1f));
             s.Append(button.transform.DOShakeRotation(1f, 10f).SetLoops(int.MaxValue));
-
-            i++;
         }
 
         Vector3 pointToSpawn = findValidPositionForPopup(position, _popupContainer);
-        //GameObject _tail = drawTail(position, pointToSpawn, canvas.transform);
-        //boxToTailDict.Add(_popupContainer, _tail);
+
+
         _popupContainer.transform.position = Input.mousePosition;
         _popupContainer.transform.localScale = Vector3.zero;
         Sequence s1 = DOTween.Sequence();
@@ -89,15 +87,17 @@ public class UIManager : MonoBehaviour
     }
 
     //returns ScreenPoint
+    //finds valid point within bounds this was such a pain god
+    //like wtf there are literally like 3 different coordinate systems like
+    //the screen coordinates and canvas coordinates and world coordinates like fuck that noise for real
     public Vector3 findValidPositionForPopup(Vector2 _mouseDownPos, GameObject _popup) {
         bool foundValidPoint = false;
-        Vector3 tryPoint = Vector3.zero;
 
         float canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
         float canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
         float scaler = Screen.width / canvasWidth;
         Rect popupRect = _popup.GetComponent<RectTransform>().rect;
-        tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + Random.insideUnitCircle.normalized * 10f;
+        Vector3 tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + Random.insideUnitCircle.normalized * 10f;
         while (!foundValidPoint)
         {
             //try point relative to the screen
@@ -150,7 +150,7 @@ public class UIManager : MonoBehaviour
     public GameObject createButton(TaskSO task, Transform parent) {
 
         GameObject _newButton = Instantiate(taskButton);
-        //_newButton.transform.position = Vector3.zero;
+
         _newButton.transform.SetParent(parent, true);
         IEnumerator co = showText(task);
         StartCoroutine(co);
@@ -344,18 +344,16 @@ public class UIManager : MonoBehaviour
     }
 
     
-
+    //this function sets the new head to act on, and updates the graph based on this head being completed!
     public void setNewHead(TaskSO t) {
-        //need to get siblings of task
         if (t.timeToAppear > 0) {
             return;
         }
 
-
-
         Debug.Log(t.achievementText);
         if (!t.complete && t.achievementText!= null && t.achievementText!= "") {
-            
+
+            //generates new achievement button
             GameObject newAchievement = Instantiate(achievementPanelPrefab);
             newAchievement.transform.SetParent(achievementContainerPanel.transform);
             newAchievement.GetComponentInChildren<TMP_Text>().text = t.achievementText;            
@@ -375,7 +373,6 @@ public class UIManager : MonoBehaviour
         }
 
         t.complete = true;
-        //this will only be entered if all of the children are not complete
         if (taskToButtonDict.ContainsKey(t))
         {
             
@@ -389,7 +386,6 @@ public class UIManager : MonoBehaviour
 
     }
 
-    //can use this to send animations to other layout groups
     public void achievementAnimation(TaskSO t, GameObject objectAdded, Vector3 start, Vector3 end, float time) {
         Image i = Instantiate(achievementAnimImagePrefab).GetComponent<Image>();
         i.sprite = t.icon;
