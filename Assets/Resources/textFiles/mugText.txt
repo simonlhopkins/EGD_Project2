@@ -7,13 +7,13 @@ Sprites/Achievements/ComingHome.png | drink coffee from mug | get caffinated
 			Sprites/Achievements/ComingHome.png | make black tea instead | FOR THE QUEEN!
 				Sprites/Achievements/ComingHome.png | remember black tea still has caffine | BREXIT
 			Sprites/Achievements/ComingHome.png | remember caffine effects mood | moody
-				Sprites/Achievements/ComingHome.png | HEY! | mind games
-					Sprites/Achievements/ComingHome.png | YOU! | mind games
-						Sprites/Achievements/ComingHome.png | ARE! | mind games
-							Sprites/Achievements/ComingHome.png | DOING! | mind games
-								Sprites/Achievements/ComingHome.png | THE! | mind games
-									Sprites/Achievements/ComingHome.png | BEST! | mind games
-										Sprites/Achievements/ComingHome.png | YOU! | mind games
+				Sprites/Achievements/ComingHome.png | HEY! |
+					Sprites/Achievements/ComingHome.png | YOU! |
+						Sprites/Achievements/ComingHome.png | ARE! |
+							Sprites/Achievements/ComingHome.png | DOING! |
+								Sprites/Achievements/ComingHome.png | THE! |
+									Sprites/Achievements/ComingHome.png | BEST! |
+										Sprites/Achievements/ComingHome.png | YOU! |
 											Sprites/Achievements/ComingHome.png | CAN! | mind games
 				Sprites/Achievements/ComingHome.png | my license is expired | road rage
 				Sprites/Achievements/ComingHome.png | I need to make a therapy appoitment | mind games

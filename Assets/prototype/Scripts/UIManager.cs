@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public GameObject taskButton;
     public GameObject achievementContainerPanel;
     public GameObject achievementPanelPrefab;
+    public GameObject achievementAnimImagePrefab;
     public Sprite tailSprite;
     public List<TaskSO> currentTasks = null;
     public GameManagerScript gm;
@@ -352,8 +353,8 @@ public class UIManager : MonoBehaviour
 
 
 
-        Debug.Log(t.hasBeenVisited);
-        if (!t.complete) {
+        Debug.Log(t.achievementText);
+        if (!t.complete && t.achievementText!= null && t.achievementText!= "") {
             
             GameObject newAchievement = Instantiate(achievementPanelPrefab);
             newAchievement.transform.SetParent(achievementContainerPanel.transform);
@@ -361,7 +362,7 @@ public class UIManager : MonoBehaviour
             newAchievement.transform.localScale = Vector3.one;
             Canvas.ForceUpdateCanvases();
             achievementAnimation(t, newAchievement, Input.mousePosition, newAchievement.transform.position, 1f);
-            newAchievement.transform.DOShakeScale(1f);
+            newAchievement.transform.DOShakeScale(1f, 0.5f);
             Destroy(newAchievement, 5f);
 
 
@@ -390,11 +391,12 @@ public class UIManager : MonoBehaviour
 
     //can use this to send animations to other layout groups
     public void achievementAnimation(TaskSO t, GameObject objectAdded, Vector3 start, Vector3 end, float time) {
-        Image i = new GameObject().AddComponent<Image>();
+        Image i = Instantiate(achievementAnimImagePrefab).GetComponent<Image>();
         i.sprite = t.icon;
         
         i.transform.SetParent(canvas.transform);
         i.transform.position = start;
+        i.gameObject.transform.localScale = Vector3.one;
         Tween anim = i.transform.DOMove(end, time);
         Destroy(i.gameObject, anim.Duration());
     }
