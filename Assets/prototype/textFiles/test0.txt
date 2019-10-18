@@ -1,32 +1,50 @@
-Assets/prototype/sprites/background | example sentance | achievement
+Sprites/Achievements/ComingHome.png | click here for a joke | achievement
+	Sprites/Achievements/ComingHome.png | joke | achievement
+		Sprites/Achievements/ComingHome.png | why | achievement
+			Sprites/Achievements/ComingHome.png | can't | achievement
+				Sprites/Achievements/ComingHome.png | bikes | achievement
+					Sprites/Achievements/ComingHome.png | stand | achievement
+						Sprites/Achievements/ComingHome.png | up | achievement
+							Sprites/Achievements/ComingHome.png | on | achievement
+								Sprites/Achievements/ComingHome.png | their | achievement
+									Sprites/Achievements/ComingHome.png | own | achievement
+	Sprites/Achievements/ComingHome.png | punchline | achievement
+		Sprites/Achievements/ComingHome.png | they | achievement
+			Sprites/Achievements/ComingHome.png | are | achievement
+				Sprites/Achievements/ComingHome.png | two | achievement
+					Sprites/Achievements/ComingHome.png | tired | achievement
+Sprites/Achievements/ComingHome.png | example sentance | achievement
 	Assets/prototype/sprites/bookOnDesk | you | achievement
 		Assets/prototype/sprites/frameOnWall | can | achievement
 			Assets/prototype/sprites/triangle | do | achievement
-				Assets/prototype/sprites/background | this | achievement
+				Sprites/Achievements/ComingHome.png | this | achievement
 					Assets/prototype/sprites/bookOnDesk | remember | achievement
 						Assets/prototype/sprites/frameOnWall | to | achievement
-							Assets/prototype/sprites/triangle | breath | achievement
-Assets/prototype/sprites/background | line1 | achievement
-Assets/prototype/sprites/background | line1 | achievement
+							Assets/prototype/sprites/triangle | take a deep breath | achievement
+							Assets/prototype/sprites/triangle | ground yourself | achievement
+							Assets/prototype/sprites/triangle | stay hydrated | achievement
+							Assets/prototype/sprites/triangle | talk to your friends | achievement
+Sprites/Achievements/ComingHome.png | line1 | achievement
+Sprites/Achievements/ComingHome.png | line1 | achievement
 	Assets/prototype/sprites/bookOnDesk | line2 | achievement
 		Assets/prototype/sprites/frameOnWall | line3 | achievement
 		Assets/prototype/sprites/mugOnTable | line4 | achievement
 			Assets/prototype/sprites/triangle | line5 | achievement
 				Assets/prototype/sprites/whitebox | line6 | achievement
-					Assets/prototype/sprites/background | line7 | achievement
-						Assets/prototype/sprites/background | line8 | achievement
-						Assets/prototype/sprites/background | line9 | achievement
-					Assets/prototype/sprites/background | line10 | achievement
-			Assets/prototype/sprites/background | line11 | achievement
-		Assets/prototype/sprites/background | line12 | achievement
-	Assets/prototype/sprites/background | line13 | achievement
-		Assets/prototype/sprites/background | line14 | achievement
-		Assets/prototype/sprites/background | line15 | achievement
-		Assets/prototype/sprites/background | line16 | achievement
-	Assets/prototype/sprites/background | line17 | achievement
-Assets/prototype/sprites/background | line18 | achievement
-	Assets/prototype/sprites/background | line19 | achievement
-		Assets/prototype/sprites/background | line20 | achievement
-		Assets/prototype/sprites/background | line21 | achievement
-		Assets/prototype/sprites/background | line22 | achievement
-	Assets/prototype/sprites/background | line23 | achievement
+					Sprites/Achievements/ComingHome.png | line7 | achievement
+						Sprites/Achievements/ComingHome.png | line8 | achievement
+						Sprites/Achievements/ComingHome.png | line9 | achievement
+					Sprites/Achievements/ComingHome.png | line10 | achievement
+			Sprites/Achievements/ComingHome.png | line11 | achievement
+		Sprites/Achievements/ComingHome.png | line12 | achievement
+	Sprites/Achievements/ComingHome.png | line13 | achievement
+		Sprites/Achievements/ComingHome.png | line14 | achievement
+		Sprites/Achievements/ComingHome.png | line15 | achievement
+		Sprites/Achievements/ComingHome.png | line16 | achievement
+	Sprites/Achievements/ComingHome.png | line17 | achievement
+Sprites/Achievements/ComingHome.png | line18 | achievement
+	Sprites/Achievements/ComingHome.png | line19 | achievement
+		Sprites/Achievements/ComingHome.png | line20 | achievement
+		Sprites/Achievements/ComingHome.png | line21 | achievement
+		Sprites/Achievements/ComingHome.png | line22 | achievement
+	Sprites/Achievements/ComingHome.png | line23 | achievement

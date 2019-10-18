@@ -45,10 +45,6 @@ public class UIManager : MonoBehaviour
 
         _popupContainer.transform.SetParent(canvas.transform, false);
 
-
-
-
-
         List<GameObject> renderedButtons = new List<GameObject>();
         foreach (TaskSO task in tasksToDisplay) {
 
@@ -75,8 +71,11 @@ public class UIManager : MonoBehaviour
         Vector3 pointToSpawn = findValidPositionForPopup(position, _popupContainer);
         //GameObject _tail = drawTail(position, pointToSpawn, canvas.transform);
         //boxToTailDict.Add(_popupContainer, _tail);
-        _popupContainer.transform.position = pointToSpawn + Random.insideUnitSphere.normalized * 200f;
-        _popupContainer.transform.DOMove(pointToSpawn, 1f);
+        _popupContainer.transform.position = Input.mousePosition;
+        _popupContainer.transform.localScale = Vector3.zero;
+        Sequence s1 = DOTween.Sequence();
+        s1.Append(_popupContainer.transform.DOMove(pointToSpawn, 0.5f));
+        s1.Insert(0, _popupContainer.transform.DOScale(Vector3.one, 0.5f));
 
     }
 
@@ -99,10 +98,7 @@ public class UIManager : MonoBehaviour
         {
             //try point relative to the screen
             tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + Random.insideUnitCircle.normalized * 200 * scaler;
-            Debug.Log("mouse pos" + _mouseDownPos);
-            Debug.Log("x bounds: " + (Screen.width - popupRect.width * scaler / 2f) + " -> " + (popupRect.width * scaler) / 2f);
-            Debug.Log("y bounds: " + (Screen.height - popupRect.height * scaler / 2f) + " -> " + popupRect.height * scaler / 2f);
-            Debug.Log("trypoint: " + tryPoint);
+
             if (tryPoint.x < (Screen.width - popupRect.width * scaler / 2f) && tryPoint.x > (popupRect.width * scaler) / 2f)
             {
                 if (tryPoint.y < (Screen.height - popupRect.height * scaler / 2f) && tryPoint.y > popupRect.height * scaler / 2f)
@@ -154,6 +150,8 @@ public class UIManager : MonoBehaviour
         _newButton.transform.SetParent(parent, true);
         IEnumerator co = showText(task);
         StartCoroutine(co);
+        _newButton.transform.Find("taskImage").gameObject.GetComponent<Image>().sprite = task.icon;
+        Debug.Log(task.icon);
         if (task.timeToAppear <= 0) {
             _newButton.GetComponentInChildren<TMP_Text>().text = task.title;
         }
