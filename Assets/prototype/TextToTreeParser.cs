@@ -19,10 +19,10 @@ public class TextToTreeParser : MonoBehaviour {
         
     }
 
-    public TaskSO generateTree(string _filePath) {
+    public TaskSO generateTree(string _fileName) {
         TaskSO root = ScriptableObject.CreateInstance<TaskSO>();
 
-        reader = new StreamReader(_filePath);
+        reader = new StreamReader("Assets/Resources/textFiles/"+_fileName);
 
         int tabCount = 0;
         TaskSO currentParent = root;

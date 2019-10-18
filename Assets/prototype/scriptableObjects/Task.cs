@@ -9,21 +9,12 @@ public class Task : MonoBehaviour
     // Start is called before the first frame update
 
     public TaskSO head;
-    public HashSet<TaskSO> nodes = new HashSet<TaskSO>(); 
-
-    public void renderScriptableObject() {
-        if (!gameObject.GetComponent<SpriteRenderer>()) {
-            gameObject.AddComponent<SpriteRenderer>().sprite = head.icon;
-        }
-        if (!gameObject.GetComponent<Collider2D>()) {
-            gameObject.AddComponent<BoxCollider2D>();
-        }
-    }
+    public HashSet<TaskSO> nodes = new HashSet<TaskSO>();
+    public string filePath;
 
 
     private void Start()
     {
-        renderScriptableObject();
 
         TaskSO testHead = ScriptableObject.CreateInstance<TaskSO>();
         testHead.title = "test head";
@@ -50,7 +41,7 @@ public class Task : MonoBehaviour
         addNodes(testc3, new List<TaskSO>() { testc5, testc6 });
 
 
-        head = new GameObject().AddComponent<TextToTreeParser>().generateTree("Assets/prototype/textFiles/test0.txt");
+        head = new GameObject().AddComponent<TextToTreeParser>().generateTree(filePath);
 
         //foreach(TaskSO task in nodes)
         //{

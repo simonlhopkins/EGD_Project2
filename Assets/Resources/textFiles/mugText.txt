@@ -1,0 +1,4 @@
+Sprites/Achievements/ComingHome.png | drink coffee from mug | achievement
+	Sprites/Achievements/ComingHome.png | make another cup | achievement
+		Sprites/Achievements/ComingHome.png | reset time on coffee maker | achievement
+	Sprites/Achievements/ComingHome.png | order more coffee online | achievement

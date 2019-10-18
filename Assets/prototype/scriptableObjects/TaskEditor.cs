@@ -12,9 +12,6 @@ public class TaskEditor : Editor
     {
         base.OnInspectorGUI();
 
-        Task task = (Task)target;
-        if (GUILayout.Button("RenderObject")) {
-            task.renderScriptableObject();
-        }
+        
     }
 }
