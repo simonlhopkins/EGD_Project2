@@ -8,6 +8,7 @@ Sprites/Achievements/ComingHome.png | click here for a joke | achievement
 							Sprites/Achievements/ComingHome.png | on | achievement
 								Sprites/Achievements/ComingHome.png | their | achievement
 									Sprites/Achievements/ComingHome.png | own | achievement
+										Sprites/Achievements/ComingHome.png | click here for a joke | achievement
 	Sprites/Achievements/ComingHome.png | punchline | achievement
 		Sprites/Achievements/ComingHome.png | they | achievement
 			Sprites/Achievements/ComingHome.png | are | achievement
@@ -42,7 +43,7 @@ Sprites/Achievements/ComingHome.png | line1 | achievement
 		Sprites/Achievements/ComingHome.png | line15 | achievement
 		Sprites/Achievements/ComingHome.png | line16 | achievement
 	Sprites/Achievements/ComingHome.png | line17 | achievement
-Sprites/Achievements/ComingHome.png | line18 | achievement
+Sprites/Achievements/Workin' It!.png | line18 | achievement
 	Sprites/Achievements/ComingHome.png | line19 | achievement
 		Sprites/Achievements/ComingHome.png | line20 | achievement
 		Sprites/Achievements/ComingHome.png | line21 | achievement

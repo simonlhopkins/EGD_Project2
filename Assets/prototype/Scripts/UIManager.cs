@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
     public Sprite tailSprite;
     public List<TaskSO> currentTasks = null;
     public GameManagerScript gm;
-    public float disapearDelay = 0.1f;
+    public float disapearDelay = 1f;
 
     //dictionary for keeping track of everything on the screen
     Dictionary<TaskSO, GameObject> taskToButtonDict = new Dictionary<TaskSO, GameObject>();
@@ -283,20 +283,24 @@ public class UIManager : MonoBehaviour
             Debug.Log("t is null");
             return;
         }
-        
+
         //if the task button doesn't exist, dont recurse
         //if (!taskToButtonDict.ContainsKey(t)) {
         //    Debug.Log(t.title + " is not in tasktobuttondict");
         //    return;
         //}
-        deleteNode(t, delay);
         foreach (TaskSO child in t.children)
         {
-            deleteSubTree(child, delay+ disapearDelay);
+            if (taskToButtonDict.ContainsKey(child)) {
+                deleteSubTree(child, delay + disapearDelay);
+            }
+            
 
         }
 
-        
+        deleteNode(t, delay);
+
+
     }
 
     public void deleteNode(TaskSO node, float delay) {
@@ -322,6 +326,17 @@ public class UIManager : MonoBehaviour
         }
 
         Debug.Log("removing " + node.title + " from dict");
+        Vector3 targetPos;
+
+        Debug.Log("node parent" + node.parent);
+        if (!taskToButtonDict.ContainsKey(node.parent))
+        {
+            targetPos = taskToButtonDict[node].transform.position - transform.up * 100f;
+        }
+        else {
+            targetPos = taskToButtonDict[node.parent].transform.position;
+        }
+        
         taskToButtonDict.Remove(node);
 
 
@@ -330,7 +345,8 @@ public class UIManager : MonoBehaviour
         if (boxToDestroy != null) {
             Sequence s = DOTween.Sequence();
             Debug.Log("delay" + delay);
-            s.Append(boxToDestroy.transform.DOMoveY(5f, 0.5f)).SetDelay(delay);
+            s.Append(boxToDestroy.transform.DOMove(targetPos, disapearDelay).SetDelay(delay));
+            s.Insert(0f, boxToDestroy.transform.DOScale(Vector3.zero, disapearDelay).SetDelay(delay));
             Destroy(boxToDestroy, s.Duration());
         }
 
