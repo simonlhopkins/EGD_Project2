@@ -232,7 +232,6 @@ public class UIManager : MonoBehaviour
                 if (taskToButtonDict.ContainsKey(t))
                 {
                     foreach (TaskSO childOfSibling in t.children) {
-                        Debug.Log("collapsing tree of " + childOfSibling.title);
                         deleteSubTree(childOfSibling, 0f);
                     }
                 }
@@ -350,20 +349,31 @@ public class UIManager : MonoBehaviour
         if (t.timeToAppear > 0) {
             return;
         }
-        if (allChildrenComplete(t)) {
+
+
+
+        Debug.Log(t.hasBeenVisited);
+        if (!t.complete) {
+            
+            GameObject newAchievement = Instantiate(achievementPanelPrefab);
+            newAchievement.transform.SetParent(achievementContainerPanel.transform);
+            newAchievement.GetComponentInChildren<TMP_Text>().text = t.achievementText;            
+            newAchievement.transform.localScale = Vector3.one;
+            Canvas.ForceUpdateCanvases();
+            achievementAnimation(t, newAchievement, Input.mousePosition, newAchievement.transform.position, 1f);
+            newAchievement.transform.DOShakeScale(1f);
+            Destroy(newAchievement, 5f);
+
+
+        }
+
+        if (allChildrenComplete(t))
+        {
             Debug.Log("All paths exhuasted on this node");
             return;
         }
-        t.complete = true;
-        Debug.Log(t.achievementText);
 
-        if (t.achievementText != "") {
-            GameObject newAchievement = Instantiate(achievementPanelPrefab);
-            newAchievement.transform.SetParent(achievementContainerPanel.transform);
-            newAchievement.GetComponentInChildren<TMP_Text>().text = t.achievementText;
-            newAchievement.transform.localScale = Vector3.one;
-        }
-        
+        t.complete = true;
         //this will only be entered if all of the children are not complete
         if (taskToButtonDict.ContainsKey(t))
         {
@@ -377,6 +387,19 @@ public class UIManager : MonoBehaviour
 
 
     }
+
+    //can use this to send animations to other layout groups
+    public void achievementAnimation(TaskSO t, GameObject objectAdded, Vector3 start, Vector3 end, float time) {
+        Image i = new GameObject().AddComponent<Image>();
+        i.sprite = t.icon;
+        
+        i.transform.SetParent(canvas.transform);
+        i.transform.position = start;
+        Tween anim = i.transform.DOMove(end, time);
+        Destroy(i.gameObject, anim.Duration());
+    }
+
+    
 
     
 }
