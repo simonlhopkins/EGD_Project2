@@ -1,2 +1,2 @@
-Sprites/Achievements/Workin' It!.png | Drink Water | Stay Hydrated
-	Sprites/Achievements/Workin' It!.png | Go to the Bathroom | Water Cycle | S
+Sprites/Achievements/Stay Hydrated.png | Drink Water | Stay Hydrated
+	Sprites/Achievements/Water Cycle.png | Go to the Bathroom | Water Cycle | S

@@ -1,8 +1,8 @@
-Sprites/Achievements/Workin' It!.png | Unlock Phone | Connected
-	Sprites/Achievements/Workin' It!.png | Check out that App | Staying Hip | S
-		Sprites/Achievements/Workin' It!.png | Look up Something | Word of the Day
-			Sprites/Achievements/Workin' It!.png | Check the News | What's the Buzz? | S
-				Sprites/Achievements/Workin' It!.png | Find a New Show | Netflix and Chill | M
-	Sprites/Achievements/Workin' It!.png | Take a Selfie | Influencer | S
-	Sprites/Achievements/Workin' It!.png | Text your Family | Family Knows Best | M
-		Sprites/Achievements/Workin' It!.png | Buy Plane Ticket Home | Coming Home | S
+Sprites/Achievements/Word of the Day.png | Unlock Phone | Connected
+	Sprites/Achievements/Word of the Day.png | Check out that App | Staying Hip | S
+		Sprites/Achievements/Word of the Day.png | Look up Something | Word of the Day
+			Sprites/Achievements/Word of the Day.png | Check the News | What's the Buzz? | S
+				Sprites/Achievements/Netflix and Chill.png | Find a New Show | Netflix and Chill | M
+	Sprites/Achievements/Coming Home.png | Take a Selfie | Influencer | S
+	Sprites/Achievements/Coming Home.png | Text your Family | Family Knows Best | M
+		Sprites/Achievements/Coming Home.png | Buy Plane Ticket Home | Coming Home | S

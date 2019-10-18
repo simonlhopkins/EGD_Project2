@@ -1,2 +1,2 @@
-Sprites/Achievements/Workin' It!.png | Straighten Picture Frame | Straight and Narrow
-	Sprites/Achievements/Workin' It!.png | Reminisce on Photo | The Good Old Days
+Sprites/Achievements/Straight and Narrow.png | Straighten Picture Frame | Straight and Narrow
+	Sprites/Achievements/Straight and Narrow.png | Reminisce on Photo | The Good Old Days

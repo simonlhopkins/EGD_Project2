@@ -1,4 +1,4 @@
-Sprites/Achievements/Workin' It!.png | Read Book | Literate
-	Sprites/Achievements/Workin' It!.png | Send Poem to Friends | Check this out! | M
-	Sprites/Achievements/Workin' It!.png | Tweet out Poem | Online Discourse | S
-		Sprites/Achievements/Workin' It!.png | Look What the President has Tweeted | Oh No | S
+Sprites/Achievements/Literate.png | Read Book | Literate
+	Sprites/Achievements/Literate.png | Send Poem to Friends | Check this out! | M
+	Sprites/Achievements/Literate.png | Tweet out Poem | Online Discourse | S
+		Sprites/cng | Look What the President has Tweeted | Oh No | S

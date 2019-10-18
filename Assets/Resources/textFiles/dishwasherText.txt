@@ -1,8 +1,8 @@
-Sprites/Achievements/Workin' It!.png | Clean Dirty Dishes | Squeaky Clean | S
-	Sprites/Achievements/Workin' It!.png | Make Breakfast | The Most Important Meal | M
-		Sprites/Achievements/Workin' It!.png | Eat Breakfast | Gonna Munch
-			Sprites/Achievements/Workin' It!.png | Do the Dishes | Happy Roommates | M
-	Sprites/Achievements/Workin' It!.png | Plan Dinner | Fine Dining Experience | S
-		Sprites/Achievements/Workin' It!.png | Make a Grocery List | Planning Ahead | S
-			Sprites/Achievements/Workin' It!.png | Go Shopping | Get it Done Now | L
-				Sprites/Achievements/Workin' It!.png | Bring In The Groceries | One Trip Wonder
+Sprites/Achievements/Squeaky Clean.png | Clean Dirty Dishes | Squeaky Clean | S
+	Sprites/Achievements/Squeaky Clean.png | Make Breakfast | The Most Important Meal | M
+		Sprites/Achievements/Squeaky Clean.png | Eat Breakfast | Gonna Munch
+			Sprites/Achievements/Squeaky Clean.png | Do the Dishes | Happy Roommates | M
+	Sprites/Achievements/Squeaky Clean.png | Plan Dinner | Fine Dining Experience | S
+		Sprites/Achievements/Planning Ahead.png | Make a Grocery List | Planning Ahead | S
+			Sprites/Achievements/Get It Done Now.png | Go Shopping | Get it Done Now | L
+				Sprites/Achievements/One Trip Wonder.png | Bring In The Groceries | One Trip Wonder
