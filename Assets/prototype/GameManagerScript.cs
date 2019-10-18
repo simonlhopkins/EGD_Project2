@@ -24,7 +24,6 @@ public class GameManagerScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             
-            Debug.Log("screenWidth" + Screen.width);
             if (EventSystem.current.IsPointerOverGameObject()) {
                 return;
             }
@@ -32,12 +31,12 @@ public class GameManagerScript : MonoBehaviour
             if (hit.collider != null)
             {
                 
-                uiManager.deleteSubTree(head);
+                uiManager.deleteSubTree(head, 0f);
                 head = hit.collider.gameObject.GetComponent<Task>().head;
                 uiManager.setNewHead(head);
             }
             else {
-                uiManager.deleteSubTree(head);
+                uiManager.deleteSubTree(head, 0f);
             }
         }
 

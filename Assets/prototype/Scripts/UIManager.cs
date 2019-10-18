@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public Sprite tailSprite;
     public List<TaskSO> currentTasks = null;
     public GameManagerScript gm;
+    public float disapearDelay = 0.1f;
 
     //dictionary for keeping track of everything on the screen
     Dictionary<TaskSO, GameObject> taskToButtonDict = new Dictionary<TaskSO, GameObject>();
@@ -27,12 +28,15 @@ public class UIManager : MonoBehaviour
     //called one time on mouse down
     //creates, positions, and adds buttons with corresponding tasks
     public void generateTaskPopup(List<TaskSO> tasksToDisplay, Vector3 position) {
+        Debug.Log("length: " + tasksToDisplay.Count);
+
         if (tasksToDisplay.Count == 0) {
 
             return;
         }
         foreach (TaskSO task in tasksToDisplay) {
             if (taskToButtonDict.ContainsKey(task)) {
+                Debug.Log(task.title + " aready exists");
                 return;
             }
         }
@@ -50,13 +54,11 @@ public class UIManager : MonoBehaviour
 
             GameObject newButton = createButton(task, _popupContainer.transform);
             //setButtonAlpha(newButton, 1f);
-            Debug.Log("setting alpha of..." + newButton.name);
             renderedButtons.Add(newButton);
 
         }
         Canvas.ForceUpdateCanvases();
         int i = 0;
-        Debug.Log("length: " + renderedButtons.Count);
         foreach (GameObject button in renderedButtons) {
             Vector3 originalPos = button.GetComponent<RectTransform>().position;
             //button.transform.position = originalPos + (Vector3.right * 300f);
@@ -151,7 +153,6 @@ public class UIManager : MonoBehaviour
         IEnumerator co = showText(task);
         StartCoroutine(co);
         _newButton.transform.Find("taskImage").gameObject.GetComponent<Image>().sprite = task.icon;
-        Debug.Log(task.icon);
         if (task.timeToAppear <= 0) {
             _newButton.GetComponentInChildren<TMP_Text>().text = task.title;
         }
@@ -212,33 +213,36 @@ public class UIManager : MonoBehaviour
         return allComplete;
     }
 
-    public void updateCompleteness(TaskSO head) {
+    public void updateCompleteness(TaskSO head, float delay) {
         if (head == null) {
             Debug.Log("head is null");
             return;
         }
 
-        if (head.parent != null && head.children.Count!=0) {
+        //special case for clicking off of a tree to another partially complete node.
+        if (head.parent != null && head.children.Count != 0) {
             foreach (TaskSO t in head.parent.children)
             {
                 if (t == head)
                 {
                     continue;
                 }
-                
+
                 if (taskToButtonDict.ContainsKey(t))
                 {
                     foreach (TaskSO childOfSibling in t.children) {
-                        deleteSubTree(childOfSibling);
+                        Debug.Log("collapsing tree of " + childOfSibling.title);
+                        deleteSubTree(childOfSibling, 0f);
                     }
                 }
 
             }
 
         }
-        
 
-        //if all of the children are completed
+
+        //if all of the children are completed in the node you just selected, check to
+        //see if the parent is now compelte
         if (allChildrenComplete(head)) {
 
             //recurses up the parents, and sets them to green if they are all compelte
@@ -248,105 +252,96 @@ public class UIManager : MonoBehaviour
 
             }
 
-            else
-            {
-                Debug.Log("isn't in dict: " + head.title);
-            }
+
+
             if (head.children.Count != 0)
             {
 
-                //check siblings
-                GameObject wrapperToDelete = null;
+                //if it is complete, that means that all of the children are complete
+                //so we can delete the children
                 foreach (TaskSO child in head.children)
                 {
-                    if (!taskToButtonDict.ContainsKey(child)) {
-                        continue;
-                    }
-                    if (wrapperToDelete != taskToButtonDict[child].transform.parent.gameObject)
-                    {
-                        wrapperToDelete = taskToButtonDict[child].transform.parent.gameObject;
-                    }
-                    taskToButtonDict.Remove(child);
-                }
-                if (wrapperToDelete == null) {
-                    return;
+                    //
+                    deleteNode(child, delay);
                 }
 
-                Sequence s = DOTween.Sequence();
-                //s.Append(boxToTailDict[wrapperToDelete].transform.DOScaleY(0f, 0.5f));
-                s.Append(wrapperToDelete.transform.DOMoveY(5f, 0.5f));
-                //GameObject tailToDelete = boxToTailDict[wrapperToDelete];
 
-                //boxToTailDict.Remove(wrapperToDelete);
-                //Destroy(tailToDelete);
-                Destroy(wrapperToDelete, s.Duration());
+
             }
 
 
-            updateCompleteness(head.parent);
+            updateCompleteness(head.parent, delay + disapearDelay);
         }
     }
 
-    public void deleteIfNotInPath(TaskSO head, List<TaskSO> pathToHead) {
 
-        pathToHead.Add(head);
-        foreach (TaskSO t in head.children) {
 
+    public void deleteSubTree(TaskSO t, float delay)
+    {
+        if (t == null)
+        {
+            Debug.Log("t is null");
+            return;
         }
         
-
-        if (head.parent == null) {
+        //if the task button doesn't exist, dont recurse
+        //if (!taskToButtonDict.ContainsKey(t)) {
+        //    Debug.Log(t.title + " is not in tasktobuttondict");
+        //    return;
+        //}
+        deleteNode(t, delay);
+        foreach (TaskSO child in t.children)
+        {
+            deleteSubTree(child, delay+ disapearDelay);
 
         }
 
-
+        
     }
 
-    public void deleteSubTree(TaskSO _head) {
+    public void deleteNode(TaskSO node, float delay) {
         //if (_head == null) {
         //    return;
         //}
-        if (_head == null) {
+        Debug.Log("delete node on " + node.title);
+        if (node == null) {
             Debug.Log("return");
             return;
         }
-        foreach (TaskSO t in _head.children)
-        {
 
-            deleteSubTree(t);
-        }
-        if (!taskToButtonDict.ContainsKey(_head))
+        if (!taskToButtonDict.ContainsKey(node))
         {
+            Debug.Log(node.title + "not in dict");
             return;
         }
-        
-            
-            
-        
 
         GameObject boxToDestroy = null;
-        if (taskToButtonDict[_head] != null)
+        if (taskToButtonDict[node] != null)
         {
-            boxToDestroy = taskToButtonDict[_head].transform.parent.gameObject;
+            boxToDestroy = taskToButtonDict[node].transform.parent.gameObject;
         }
-        taskToButtonDict.Remove(_head);
-        
+
+        Debug.Log("removing " + node.title + " from dict");
+        taskToButtonDict.Remove(node);
+
 
 
         //s.Append(box.transform.DOMoveY(5f, 0.5f));
         if (boxToDestroy != null) {
             Sequence s = DOTween.Sequence();
-            s.Append(boxToDestroy.transform.DOMoveY(5f, 0.5f));
+            Debug.Log("delay" + delay);
+            s.Append(boxToDestroy.transform.DOMoveY(5f, 0.5f)).SetDelay(delay);
             Destroy(boxToDestroy, s.Duration());
         }
-        
-        
+
+
     }
+
+    
 
     public void setNewHead(TaskSO t) {
         //need to get siblings of task
         if (t.timeToAppear > 0) {
-            Debug.Log(t.timeToAppear);
             return;
         }
         if (allChildrenComplete(t)) {
@@ -361,7 +356,8 @@ public class UIManager : MonoBehaviour
             taskToButtonDict[t].GetComponent<Image>().color = Color.yellow;
 
         }
-        updateCompleteness(t);
+        updateCompleteness(t, 0f);
+        
         generateTaskPopup(t.children, Input.mousePosition);
 
 

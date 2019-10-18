@@ -13,7 +13,7 @@ Sprites/Achievements/ComingHome.png | click here for a joke | achievement
 			Sprites/Achievements/ComingHome.png | are | achievement
 				Sprites/Achievements/ComingHome.png | two | achievement
 					Sprites/Achievements/ComingHome.png | tired | achievement
-Sprites/Achievements/ComingHome.png | example sentance | achievement
+Sprites/Achievements/Just A Trim.png | example sentance | achievement
 	Assets/prototype/sprites/bookOnDesk | you | achievement
 		Assets/prototype/sprites/frameOnWall | can | achievement
 			Assets/prototype/sprites/triangle | do | achievement
@@ -24,7 +24,7 @@ Sprites/Achievements/ComingHome.png | example sentance | achievement
 							Assets/prototype/sprites/triangle | ground yourself | achievement
 							Assets/prototype/sprites/triangle | stay hydrated | achievement
 							Assets/prototype/sprites/triangle | talk to your friends | achievement
-Sprites/Achievements/ComingHome.png | line1 | achievement
+Sprites/Achievements/One Trip Wonder.png | line1 | achievement
 Sprites/Achievements/ComingHome.png | line1 | achievement
 	Assets/prototype/sprites/bookOnDesk | line2 | achievement
 		Assets/prototype/sprites/frameOnWall | line3 | achievement
