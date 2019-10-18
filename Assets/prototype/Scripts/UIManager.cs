@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     //task popup prefabs
     public GameObject popupContainer;
     public GameObject taskButton;
+    public GameObject achievementContainerPanel;
+    public GameObject achievementPanelPrefab;
     public Sprite tailSprite;
     public List<TaskSO> currentTasks = null;
     public GameManagerScript gm;
@@ -28,7 +30,6 @@ public class UIManager : MonoBehaviour
     //called one time on mouse down
     //creates, positions, and adds buttons with corresponding tasks
     public void generateTaskPopup(List<TaskSO> tasksToDisplay, Vector3 position) {
-        Debug.Log("length: " + tasksToDisplay.Count);
 
         if (tasksToDisplay.Count == 0) {
 
@@ -280,15 +281,9 @@ public class UIManager : MonoBehaviour
     {
         if (t == null)
         {
-            Debug.Log("t is null");
             return;
         }
 
-        //if the task button doesn't exist, dont recurse
-        //if (!taskToButtonDict.ContainsKey(t)) {
-        //    Debug.Log(t.title + " is not in tasktobuttondict");
-        //    return;
-        //}
         foreach (TaskSO child in t.children)
         {
             if (taskToButtonDict.ContainsKey(child)) {
@@ -307,15 +302,12 @@ public class UIManager : MonoBehaviour
         //if (_head == null) {
         //    return;
         //}
-        Debug.Log("delete node on " + node.title);
         if (node == null) {
-            Debug.Log("return");
             return;
         }
 
         if (!taskToButtonDict.ContainsKey(node))
         {
-            Debug.Log(node.title + "not in dict");
             return;
         }
 
@@ -325,10 +317,8 @@ public class UIManager : MonoBehaviour
             boxToDestroy = taskToButtonDict[node].transform.parent.gameObject;
         }
 
-        Debug.Log("removing " + node.title + " from dict");
         Vector3 targetPos;
 
-        Debug.Log("node parent" + node.parent);
         if (!taskToButtonDict.ContainsKey(node.parent))
         {
             targetPos = taskToButtonDict[node].transform.position - transform.up * 100f;
@@ -365,6 +355,15 @@ public class UIManager : MonoBehaviour
             return;
         }
         t.complete = true;
+        Debug.Log(t.achievementText);
+
+        if (t.achievementText != "") {
+            GameObject newAchievement = Instantiate(achievementPanelPrefab);
+            newAchievement.transform.SetParent(achievementContainerPanel.transform);
+            newAchievement.GetComponentInChildren<TMP_Text>().text = t.achievementText;
+            newAchievement.transform.localScale = Vector3.one;
+        }
+        
         //this will only be entered if all of the children are not complete
         if (taskToButtonDict.ContainsKey(t))
         {

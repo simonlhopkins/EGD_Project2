@@ -59,9 +59,7 @@ public class TextToTreeParser : MonoBehaviour {
             currentParent.children.Add(mostRecentNode);
             int index = Mathf.Max(info[0].IndexOf("."), 0);
             string modded = info[0].Substring(0, index);
-            Debug.Log(modded);
             mostRecentNode.icon = Resources.Load<Sprite>(modded);
-            Debug.Log(mostRecentNode.icon);
             mostRecentNode.title = info[1];
             mostRecentNode.achievementText = info[2];
 
