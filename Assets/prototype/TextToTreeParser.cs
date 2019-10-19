@@ -62,7 +62,10 @@ public class TextToTreeParser : MonoBehaviour {
             string modded = info[0].Substring(0, index);
             mostRecentNode.icon = Resources.Load<Sprite>(modded);
             mostRecentNode.title = info[1];
-            mostRecentNode.achievementText = info[2];
+
+            if (info.Length > 2) {
+                mostRecentNode.achievementText = info[2];
+            }
 
             if(info.Length > 3) {
                 if(info[3] == "S") {

@@ -1,4 +1,7 @@
 Sprites/Achievements/Literate.png | Read Book | Literate
-	Sprites/Achievements/Literate.png | Send Poem to Friends | Check this out! | M
-	Sprites/Achievements/Literate.png | Tweet out Poem | Online Discourse | S
-		Sprites/cng | Look What the President has Tweeted | Oh No | S
+	Sprites/Achievements/On My Mind.png | Write a Poem | On My Mind
+		Sprites/Achievements/Check This Out!.png | Send Poem to Friends | Check this out! | M
+	Sprites/Achievements/On My Mind.png | Draft a Tweet | On My Mind
+		Sprites/Achievements/Online Discourse.png | Tweet out Poem | Online Discourse | S
+			Sprites/Achievements/Oh No.png | Look What the President has Tweeted | Oh No | S
+	Sprites/Achievements/Be Creative.png | Make Art | Be Creative | S
