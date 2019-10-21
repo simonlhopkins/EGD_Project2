@@ -154,7 +154,10 @@ public class UIManager : MonoBehaviour
         _newButton.transform.SetParent(parent, true);
         IEnumerator co = showText(task);
         StartCoroutine(co);
+        
         _newButton.transform.Find("taskImage").gameObject.GetComponent<Image>().sprite = task.icon;
+
+        
         if (task.timeToAppear <= 0) {
             _newButton.GetComponentInChildren<TMP_Text>().text = task.title;
         }
@@ -343,14 +346,14 @@ public class UIManager : MonoBehaviour
 
     }
 
-    
+
     //this function sets the new head to act on, and updates the graph based on this head being completed!
+    bool coroutineRunning = false;
     public void setNewHead(TaskSO t) {
         if (t.timeToAppear > 0) {
             return;
         }
 
-        Debug.Log(t.achievementText);
         if (!t.complete && t.achievementText!= null && t.achievementText!= "") {
 
             //generates new achievement button
@@ -383,8 +386,16 @@ public class UIManager : MonoBehaviour
         
         generateTaskPopup(t.children, Input.mousePosition);
 
+        //depth first search
+
+
+        
 
     }
+
+
+    
+
 
     public void achievementAnimation(TaskSO t, GameObject objectAdded, Vector3 start, Vector3 end, float time) {
         Image i = Instantiate(achievementAnimImagePrefab).GetComponent<Image>();

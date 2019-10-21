@@ -33,6 +33,7 @@ public class GameManagerScript : MonoBehaviour
                 
                 uiManager.deleteSubTree(head, 0f);
                 head = hit.collider.gameObject.GetComponent<Task>().head;
+                //uiManager.setNewHead(head);
                 uiManager.setNewHead(head);
             }
             else {

@@ -61,6 +61,13 @@ public class TextToTreeParser : MonoBehaviour {
             int index = Mathf.Max(info[0].IndexOf("."), 0);
             string modded = info[0].Substring(0, index);
             mostRecentNode.icon = Resources.Load<Sprite>(modded);
+            if(mostRecentNode.icon == null)
+            {
+                Texture2D newTex = Texture2D.blackTexture;
+                
+                mostRecentNode.icon = Sprite.Create(newTex, new Rect(0.0f, 0.0f, newTex.width, newTex.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+            }
             mostRecentNode.title = info[1];
 
             if (info.Length > 2) {
