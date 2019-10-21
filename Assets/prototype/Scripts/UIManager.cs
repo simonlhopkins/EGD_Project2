@@ -393,7 +393,28 @@ public class UIManager : MonoBehaviour
 
     }
 
+    float timeForAutoTree = 0;
+    public void generateAutoTree(TaskSO t) {
+        bfsHelper(t);
+    }
 
+    public void bfsHelper(TaskSO current) {
+
+        Debug.Log(current.title + ": " + timeForAutoTree);
+
+        foreach (TaskSO t in current.children) {
+            timeForAutoTree++;
+            StartCoroutine(snhCo(current, timeForAutoTree));
+            bfsHelper(t);
+
+        }
+    }
+
+    IEnumerator snhCo(TaskSO t, float time) {
+        yield return new WaitForSeconds(time);
+
+        setNewHead(t);
+    }
     
 
 
