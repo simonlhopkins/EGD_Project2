@@ -386,6 +386,8 @@ public class UIManager : MonoBehaviour
 
     }
 
+
+
     public void achievementAnimation(TaskSO t, GameObject objectAdded, Vector3 start, Vector3 end, float time) {
         Image i = Instantiate(achievementAnimImagePrefab).GetComponent<Image>();
         i.sprite = t.icon;
