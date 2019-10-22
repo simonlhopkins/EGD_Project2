@@ -1,37 +1,16 @@
-none | A | achievement
-	none | B | achievement
-		none | C | achievement
-		none | D | achievement
-	none | E | achievement
-		none | example | achievement | 0 | start,example tag
-			none | this | achievement
-				none | is | achievement
-					none | how | achievement
-						none | a | achievement
-							none | sentance | achievement
-								none | should | achievement
-									none | work | achievement
-			none | you | achievement
-				none | can | achievement
-					none | even | achievement
-						none | have | achievement
-							none | multiple | achievement
-								none | sentances | achievement
-									none | isnt | achievement
-										none | this | achievement
-											none | cool | achievement
-											none | trendy | achievement
-											none | a good use of my time | achievement
-											none | totally worth 4 hours of | achievement
-												none | pointless debugging | achievement
-												none | tears | achievement
-												none | pain | achievement
-													none | pain | achievement
-														none | pain | achievement
-															none | pain | achievement
-																none | pain | achievement
-																	none | pain | achievement
-																		none | pain | achievement
-																			none | pain | achievement | 0 | end
-		none | F | achievement
-		none | G | achievement
+None | click here for option A | click A | 0 | start
+	None | test | click A | 0 | 
+		None | test | click A | 0 | 
+			None | test | click A | 0 | 
+				None | test | click B | 0 | 
+			None | test | click C | 0 |
+	None | test | click A | 0 | 
+		None | test | click A | 0 | 
+			None | test | click A | 0 | 
+				None | test | click B | 0 | 
+			None | test | click C | 0 |
+	None | test | click A | 0 | 
+		None | test | click A | 0 | 
+			None | test | click A | 0 | 
+			None | test | click B | 0 | 
+				None | test | click C | 0 | end

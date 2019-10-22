@@ -30,6 +30,8 @@ public class UIManager : MonoBehaviour
     Dictionary<TaskSO, GameObject> taskToButtonDict = new Dictionary<TaskSO, GameObject>();
     Dictionary<GameObject, GameObject> boxToTailDict = new Dictionary<GameObject, GameObject>();
 
+    
+    
 
     private void OnApplicationQuit()
     {
@@ -128,7 +130,9 @@ public class UIManager : MonoBehaviour
 
 
     }
-
+    public Color colorFromRGB(float r, float g, float b) {
+        return new Color(r / 255f, g / 255f, b / 255f, 1f);
+    }
     //takes 2 screen space args
     public GameObject drawTail(Vector3 startPos, Vector3 endPos, Transform _parent) {
         GameObject tail = new GameObject();
@@ -142,7 +146,7 @@ public class UIManager : MonoBehaviour
         tail.transform.rotation = Quaternion.LookRotation(Vector3.forward, vecToTarg);
         Image i = tail.AddComponent<Image>();
         i.sprite = tailSprite;
-        i.color = Color.white;
+        i.color = colorFromRGB(184, 186, 200);
         RectTransform rt = tail.GetComponent<RectTransform>();
         rt.pivot = new Vector2(0.5f, 1f);
         rt.localScale = new Vector3(0.5f, vecToTarg.magnitude / rt.rect.height, 1f);
@@ -174,10 +178,10 @@ public class UIManager : MonoBehaviour
             //when you are creating a new button
             if (task.complete)
             {
-                taskToButtonDict[task].GetComponent<Image>().color = Color.green;
+                taskToButtonDict[task].GetComponent<Image>().color = colorFromRGB(180, 214, 211);
                 if (task.children.Count != 0) {
                     if (!allChildrenComplete(task)) {
-                        taskToButtonDict[task].GetComponent<Image>().color = Color.yellow;
+                        taskToButtonDict[task].GetComponent<Image>().color = colorFromRGB(170, 120, 166);
                     }
                 }
             }
@@ -258,7 +262,7 @@ public class UIManager : MonoBehaviour
             //recurses up the parents, and sets them to green if they are all compelte
             if (taskToButtonDict.ContainsKey(head))
             {
-                taskToButtonDict[head].GetComponent<Image>().color = Color.green;
+                taskToButtonDict[head].GetComponent<Image>().color = colorFromRGB(180, 214, 211);
 
             }
 
@@ -369,7 +373,8 @@ public class UIManager : MonoBehaviour
             //generates new achievement button
             GameObject newAchievement = Instantiate(achievementPanelPrefab);
             newAchievement.transform.SetParent(achievementContainerPanel.transform);
-            newAchievement.GetComponentInChildren<TMP_Text>().text = t.achievementText;            
+            newAchievement.GetComponentInChildren<TMP_Text>().text = t.achievementText;
+            newAchievement.GetComponent<Image>().color = colorFromRGB(178, 255, 214);
             newAchievement.transform.localScale = Vector3.one;
             Canvas.ForceUpdateCanvases();
             newAchievement.transform.DOShakeScale(1f, 0.5f);
@@ -388,7 +393,7 @@ public class UIManager : MonoBehaviour
         if (taskToButtonDict.ContainsKey(t))
         {
             
-            taskToButtonDict[t].GetComponent<Image>().color = Color.yellow;
+            taskToButtonDict[t].GetComponent<Image>().color = colorFromRGB(170, 120, 166);
 
         }
         updateCompleteness(t, 0f);
@@ -433,6 +438,7 @@ public class UIManager : MonoBehaviour
 
         if (Array.IndexOf(t.tags, "end") > -1)
         {
+            showingSentance = false;
             yield return null;
         }
         else {
