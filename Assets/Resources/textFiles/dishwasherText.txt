@@ -1,13 +1,13 @@
 Sprites/Achievements/Squeaky Clean.png | Clean Dirty Dishes | Squeaky Clean | S
-	Sprites/Achievements/On My Mind.png | Plan Breakfast | On My Mind
+	Sprites/Achievements/On My Mind (Plan Breakfast).png | Plan Breakfast | On My Mind (Plan Breakfast)
 		Sprites/Achievements/The Most Important Meal.png | Make Breakfast | The Most Important Meal | M
 			Sprites/Achievements/Gonna Munch.png | Eat Breakfast | Gonna Munch
-				Sprites/Achievements/You Got This!.png | Clear the Table | You Got This!
+				Sprites/Achievements/You Got This! (Clear the Table).png | Clear the Table | You Got This! (Clear the Table)
 					Sprites/Achievements/Happy Roommates.png | Do the Dishes | Happy Roommates | M
 	Sprites/Achievements/Fine Dining Experience.png | Plan Dinner | Fine Dining Experience | S
-		Sprites/Achievements/One Step at a Time.png | Find Paper & Pen | One Step at a Time
+		Sprites/Achievements/One Step at a Time (Paper & Pen).png | Find Paper & Pen | One Step at a Time (Paper & Pen)
 			Sprites/Achievements/Planning Ahead.png | Make a Grocery List | Planning Ahead | S
-				Sprites/Achievements/You Got This!.png | Go to the Store! | You Got This!
+				Sprites/Achievements/You Got This! (To the Store).png | Go to the Store! | You Got This! (To the Store)
 					Sprites/Achievements/Get It Done Now.png | Go Shopping | Get it Done Now | L
 						Sprites/Achievements/One Trip Wonder.png | Bring In The Groceries | One Trip Wonder
 	Sprites/Achievements/Stronger Every Day.png | Inner Strength

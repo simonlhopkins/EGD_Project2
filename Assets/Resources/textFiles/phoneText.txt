@@ -1,13 +1,14 @@
 Sprites/Achievements/Connected.png | Unlock Phone | Connected
 	Sprites/Achievements/Staying Hip.png | Check out that App | Staying Hip | S
 		Sprites/Achievements/Word of the Day.png | Look up Something | Word of the Day
-			Sprites/Achievements/What's The Buzz.png | Check the News | What's the Buzz? | S
+			Sprites/Achievements/What's the Buzz.png | Check the News | What's the Buzz? | S
 				Sprites/Achievements/Netflix and Chill.png | Find a New Show | Netflix and Chill | M
-	Sprites/Achievements/Influencer.png | Take a Selfie | Influencer | S
-	Sprites/Achievements/On My Mind.png | Draft a Text | On My Mind
-		Sprites/Achievements/Family Knows Best.png | Text your Family | Family Knows Best | M
-			Sprites/Achievements/One Step At A Time.png | Check Calander | One Step at a Time
+	Sprites/Achievements/Inflencer.png | Take a Selfie | Influencer | S
+	Sprites/Achievements/On My Mind (Draft Text).png | Draft a Text | On My Mind (Draft Text)
+		Sprites/Achievements/Keeping in Touch (Family).png | Text your Family | Keeping in Touch (Family) | M
+			Sprites/Achievements/One Step at a Time (Calendar).png | Check Calendar | One Step at a Time (Calendar)
 				Sprites/Achievements/ComingHome.png | Buy Plane Ticket Home | Coming Home | S
+		Sprites/Achievements/Keeping in Touch (Friend).png | Texat a Friend | Keeping in Touch (Friend) | M
 	Sprites/Achievements/Centered.png | Center Self
 		Sprites/Achievements/Centered.png | It's
 			Sprites/Achievements/Centered.png | going

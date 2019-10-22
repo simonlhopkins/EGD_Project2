@@ -3,7 +3,7 @@ Sprites/Achievements/Good Hydration.png | Water the Plants | Good Hydration | S
 	Sprites/Achievements/Good Morning Sunshine.png | Open the Curtains | Good Morning Sunshine
 		Sprites/Achievements/Weather Channel.png | Look Outside | Weather Channel
 		Sprites/Achievements/Fresh Air.png | Open the Window | Fresh Air
-			Sprites/Achievements/You Got This!.png | Put on Shoes | You Got This!
+			Sprites/Achievements/You Got This! (Put on Shoes).png | Put on Shoes | You Got This! (Put on Shoes)
 				Sprites/Achievements/Walkabout.png | Take a Walk | Walkabout | L
 					Sprites/Achievements/Workin' It!.png | Finish your Workout | Workin' it! | M
 	Sprites/Achievements/Self-Starter.png | Take a Moment
