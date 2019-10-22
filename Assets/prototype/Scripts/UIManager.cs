@@ -147,10 +147,7 @@ public class UIManager : MonoBehaviour
         rt.pivot = new Vector2(0.5f, 1f);
         rt.localScale = new Vector3(0.5f, vecToTarg.magnitude / rt.rect.height, 1f);
         //rt.DOScaleY(vecToTarg.magnitude / rt.rect.height, 0.5f);
-        //Debug.Log(startPos + "<start pos, end pos>" + endPos);
-        //Debug.Log(Input.mousePosition);
-        //Debug.Log(rt.rect.height);
-        //Debug.Log(vecToTarg.magnitude);
+
         return tail;
         //rt.localScale = new Vector3(0.1f, vecToTarg.magnitude / rt.rect.height, 1f);
     }
@@ -305,7 +302,6 @@ public class UIManager : MonoBehaviour
             
 
         }
-        Debug.Log(t.title);
         
         deleteNode(t, testDelay);
 
@@ -430,21 +426,42 @@ public class UIManager : MonoBehaviour
     
     //rename this
     IEnumerator snhCo(TaskSO t) {
+        
         yield return new WaitForSeconds(0.5f);
         
         yield return StartCoroutine(test(t));
-        foreach (TaskSO child in t.children) {
-            yield return StartCoroutine(snhCo(child));
+
+        if (Array.IndexOf(t.tags, "end") > -1)
+        {
+            yield return null;
+        }
+        else {
+            foreach (TaskSO child in t.children)
+            {
+
+                yield return StartCoroutine(snhCo(child));
+            }
         }
         
+        
+
 
         yield return null;
     }
 
     //rename this
     IEnumerator test(TaskSO t) {
-        setNewHead(t);
-        yield return null;
+
+        if (Array.IndexOf(t.tags, "end") > -1)
+        {
+            yield return null;
+        }
+        else {
+            setNewHead(t);
+            yield return null;
+        }
+        
+        
     }
 
 

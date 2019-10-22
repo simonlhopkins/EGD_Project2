@@ -11,5 +11,5 @@ Sprites/Achievements/Good Hydration.png | Water the Plants | Good Hydration | S
 			Sprites/Achievements/Self-Starter.png | are
 				Sprites/Achievements/Self-Starter.png | going
 					Sprites/Achievements/Self-Starter.png | to
-						Sprites/Achievements/Self-Starter.png | be
+						Sprites/Achievements/Self-Starter.png | be | | 0 | 
 							Sprites/Achievements/Self-Starter.png | amazing! | Self-Starter | 0 | end
