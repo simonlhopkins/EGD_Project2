@@ -10,10 +10,10 @@ Sprites/Achievements/Squeaky Clean.png | Clean Dirty Dishes | Squeaky Clean | S
 				Sprites/Achievements/You Got This!.png | Go to the Store! | You Got This!
 					Sprites/Achievements/Get It Done Now.png | Go Shopping | Get it Done Now | L
 						Sprites/Achievements/One Trip Wonder.png | Bring In The Groceries | One Trip Wonder
-						Sprites/Achievements/Stronger Every Day.png | Inner Strength
-							Sprites/Achievements/Stronger Every Day.png | You
-								Sprites/Achievements/Stronger Every Day.png | are
-									Sprites/Achievements/Stronger Every Day.png | stronger
-										Sprites/Achievements/Stronger Every Day.png | than
-											Sprites/Achievements/Stronger Every Day.png | you
-												Sprites/Achievements/Stronger Every Day.png | think! | Stronger Every Day
+	Sprites/Achievements/Stronger Every Day.png | Inner Strength
+		Sprites/Achievements/Stronger Every Day.png | You
+			Sprites/Achievements/Stronger Every Day.png | are
+				Sprites/Achievements/Stronger Every Day.png | stronger
+					Sprites/Achievements/Stronger Every Day.png | than
+						Sprites/Achievements/Stronger Every Day.png | you
+							Sprites/Achievements/Stronger Every Day.png | think! | Stronger Every Day
