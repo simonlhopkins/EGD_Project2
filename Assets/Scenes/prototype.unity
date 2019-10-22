@@ -1320,7 +1320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 0}
-  filePath: simonTest.txt
+  filePath: bookText.txt
 --- !u!4 &2064981210
 Transform:
   m_ObjectHideFlags: 0

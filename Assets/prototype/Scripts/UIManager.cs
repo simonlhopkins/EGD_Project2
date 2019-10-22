@@ -39,18 +39,18 @@ public class UIManager : MonoBehaviour
     //creates, positions, and adds buttons with corresponding tasks
 
 
-    public void generateTaskPopup(List<TaskSO> tasksToDisplay, Vector3 position) {
+    public Sequence generateTaskPopup(List<TaskSO> tasksToDisplay, Vector3 position) {
 
         if (tasksToDisplay.Count == 0) {
 
-            return;
+            return DOTween.Sequence();
         }
 
         //this shouldn't ever be entered, but checks to make sure there isn't already
         //a duplicate task on screen
         foreach (TaskSO task in tasksToDisplay) {
             if (taskToButtonDict.ContainsKey(task)) {
-                return;
+                return DOTween.Sequence();
             }
         }
 
@@ -88,6 +88,7 @@ public class UIManager : MonoBehaviour
         s1.Append(_popupContainer.transform.DOMove(pointToSpawn, 0.5f));
         s1.Insert(0, _popupContainer.transform.DOScale(Vector3.one, 0.5f));
 
+        return s1;
     }
 
     public void setButtonAlpha(GameObject button, float alpha) {
@@ -229,7 +230,6 @@ public class UIManager : MonoBehaviour
 
     public void updateCompleteness(TaskSO head, float delay) {
         if (head == null) {
-            Debug.Log("head is null");
             return;
         }
 
@@ -286,8 +286,9 @@ public class UIManager : MonoBehaviour
             updateCompleteness(head.parent, delay + disapearDelay);
         }
     }
-    
 
+
+    float testDelay = 0f;
     public void deleteSubTree(TaskSO t, float delay)
     {
         if (t == null)
@@ -305,7 +306,8 @@ public class UIManager : MonoBehaviour
 
         }
         Debug.Log(t.title);
-        deleteNode(t, delay);
+        
+        deleteNode(t, testDelay);
 
     }
 
@@ -374,7 +376,6 @@ public class UIManager : MonoBehaviour
             newAchievement.GetComponentInChildren<TMP_Text>().text = t.achievementText;            
             newAchievement.transform.localScale = Vector3.one;
             Canvas.ForceUpdateCanvases();
-            achievementAnimation(t, newAchievement, Input.mousePosition, newAchievement.transform.position, 1f);
             newAchievement.transform.DOShakeScale(1f, 0.5f);
             Destroy(newAchievement, 5f);
 
@@ -442,17 +443,8 @@ public class UIManager : MonoBehaviour
 
     //rename this
     IEnumerator test(TaskSO t) {
-        Debug.Log(t.title);
         setNewHead(t);
         yield return null;
-    }
-
-
-
-    public void achievementAnimation(TaskSO t, GameObject objectAdded, Vector3 start, Vector3 end, float time) {
-        generateTaskPopup(t.children, Input.mousePosition);
-
-
     }
 
 
