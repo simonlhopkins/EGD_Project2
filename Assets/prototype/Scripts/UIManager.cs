@@ -106,7 +106,8 @@ public class UIManager : MonoBehaviour
         bool foundValidPoint = false;
 
         float canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
-        float canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
+        float canvasWidth = canvas.GetComponent<RectTransform>().rect.width- achievementContainerPanel.GetComponent<RectTransform>().rect.width;
+        Debug.Log("width of container: " +achievementContainerPanel.GetComponent<RectTransform>().rect.width);
         float scaler = Screen.width / canvasWidth;
         Rect popupRect = _popup.GetComponent<RectTransform>().rect;
         Vector3 tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + UnityEngine.Random.insideUnitCircle.normalized * 10f;
@@ -388,6 +389,7 @@ public class UIManager : MonoBehaviour
             Debug.Log("All paths exhuasted on this node");
             return;
         }
+
 
         t.complete = true;
         if (taskToButtonDict.ContainsKey(t))

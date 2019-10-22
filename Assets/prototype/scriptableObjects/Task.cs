@@ -16,30 +16,7 @@ public class Task : MonoBehaviour
     private void Start()
     {
 
-        TaskSO testHead = ScriptableObject.CreateInstance<TaskSO>();
-        testHead.title = "test head";
-        TaskSO testc1 = ScriptableObject.CreateInstance<TaskSO>();
-        testc1.title = "c1";
-        TaskSO testc2 = ScriptableObject.CreateInstance<TaskSO>();
-        testc2.title = "c2";
-        TaskSO testc3 = ScriptableObject.CreateInstance<TaskSO>();
-        testc3.title = "c3";
-        TaskSO testc4 = ScriptableObject.CreateInstance<TaskSO>();
-        testc4.title = "c4";
-        TaskSO testc5 = ScriptableObject.CreateInstance<TaskSO>();
-        testc5.title = "c5";
-        TaskSO testc6 = ScriptableObject.CreateInstance<TaskSO>();
-        testc6.title = "c6";
-        TaskSO testc7 = ScriptableObject.CreateInstance<TaskSO>();
-        testc5.title = "c7";
-        TaskSO testc8 = ScriptableObject.CreateInstance<TaskSO>();
-        testc6.title = "c8";
-
-        addNodes(testHead, new List<TaskSO>() { testc1, testc2 });
-        addNodes(testc1, new List<TaskSO>() { testc3, testc4 });
-        addNodes(testc4, new List<TaskSO>() { testc7, testc8 });
-        addNodes(testc3, new List<TaskSO>() { testc5, testc6 });
-
+        
 
         head = new GameObject().AddComponent<TextToTreeParser>().generateTree(filePath);
 
