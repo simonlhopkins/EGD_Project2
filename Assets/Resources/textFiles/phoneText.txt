@@ -1,17 +1,29 @@
 Sprites/Achievements/Connected.png | Unlock Phone | Connected
-	Sprites/Achievements/Staying Hip.png | Check out that App | Staying Hip | S
+	Sprites/Achievements/Staying Hip.png | Check out that App | Staying Hip | 5
 		Sprites/Achievements/Word of the Day.png | Look up Something | Word of the Day
-			Sprites/Achievements/What's the Buzz.png | Check the News | What's the Buzz? | S
-				Sprites/Achievements/Netflix and Chill.png | Find a New Show | Netflix and Chill | M
-	Sprites/Achievements/Inflencer.png | Take a Selfie | Influencer | S
+			Sprites/Achievements/What's the Buzz.png | Check the News | What's the Buzz? | 5
+				Sprites/Achievements/Netflix and Chill.png | Find a New Show | Netflix and Chill | 10
+	Sprites/Achievements/Inflencer.png | Take a Selfie | Influencer | 5
+		none|Cheesy Pic| Smile!|0
+		none|Duck Face| Honk!|0
+		none|Goofy Pose| H'yuck!|0
 	Sprites/Achievements/On My Mind (Draft Text).png | Draft a Text | On My Mind (Draft Text)
-		Sprites/Achievements/Keeping in Touch (Family).png | Text your Family | Keeping in Touch (Family) | M
+		Sprites/Achievements/Keeping in Touch (Family).png | Text your Family | Keeping in Touch (Family) | 10
 			Sprites/Achievements/One Step at a Time (Calendar).png | Check Calendar | One Step at a Time (Calendar)
-				Sprites/Achievements/ComingHome.png | Buy Plane Ticket Home | Coming Home | S
-		Sprites/Achievements/Keeping in Touch (Friend).png | Texat a Friend | Keeping in Touch (Friend) | M
+				Sprites/Achievements/ComingHome.png | Buy Plane Ticket Home | Coming Home | 5
+		Sprites/Achievements/Keeping in Touch (Friend).png | Text a Friend | Keeping in Touch (Friend) | 10
+			none|Why| | 0| start
+				none|are|
+					none|writer's|
+						none|always|
+							none|cold?| | 0| end
+								none|They're| | 0 |start|
+									none|surrounded|
+										none|by
+											none|drafts!| Joker|0|end
 	Sprites/Achievements/Centered.png | Center Self
-		Sprites/Achievements/Centered.png | It's
+		Sprites/Achievements/Centered.png | It's| | 0 | start
 			Sprites/Achievements/Centered.png | going
 				Sprites/Achievements/Centered.png | to
 					Sprites/Achievements/Centered.png | be
-						Sprites/Achievements/Centered.png | okay! | Centered
+						Sprites/Achievements/Centered.png | okay! | Centered|0|end
