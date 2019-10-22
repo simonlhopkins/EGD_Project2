@@ -7,9 +7,9 @@ Sprites/Achievements/Good Hydration.png | Water the Plants | Good Hydration | S
 				Sprites/Achievements/Walkabout.png | Take a Walk | Walkabout | L
 					Sprites/Achievements/Workin' It!.png | Finish your Workout | Workin' it! | M
 	Sprites/Achievements/Self-Starter.png | Take a Moment
-		Sprites/Achievements/Self-Starter.png | You
+		Sprites/Achievements/Self-Starter.png | You | | 0 | start
 			Sprites/Achievements/Self-Starter.png | are
 				Sprites/Achievements/Self-Starter.png | going
 					Sprites/Achievements/Self-Starter.png | to
 						Sprites/Achievements/Self-Starter.png | be
-							Sprites/Achievements/Self-Starter.png | amazing! | Self-Starter
+							Sprites/Achievements/Self-Starter.png | amazing! | Self-Starter | 0 | end

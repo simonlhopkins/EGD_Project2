@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- saved from url=(0161)https://pippio.com/api/sync?pid=1391&ref=http%3A%2F%2Fmikeadev.net%2F2015%2F02%2Fhow-to-create-a-recursive-call-with-unitys-coroutines%2F&it=1&iv=c8brccbj3onkvf0 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><meta name="referrer" content="no-referrer"><script>
+		var f = function () {
+	function loadChains(chains, limit, onChainDone) {
+    function newImageLoader(url) {
+        return function () {
+            var e = new Image();
+            addListeners(e);
+            e.src = url;
+        };
+    }
+
+    function newScriptLoader(url) {
+        return function () {
+            var e = document.createElement('script');
+            e.type = 'text/javascript';
+            e.async = true;
+            addListeners(e);
+            e.src = url;
+            document.head.appendChild(e);
+        };
+    }
+
+    function newIframeLoader(url) {
+        return function () {
+            var e = document.createElement('iframe');
+            e.style.display = 'none';
+            e.width = 1;
+            e.height = 1;
+            addListeners(e);
+            e.src = url;
+            document.body.appendChild(e);
+        };
+    }
+
+    function addListeners(e) {
+        addLoadErrorListeners(e, loadNext);
+        if (typeof onChainDone === 'function') {
+            addLoadErrorListeners(e, onChainDone);
+        }
+    }
+
+    function addLoadErrorListeners(e, listener) {
+        if (typeof e.addEventListener === 'function') {
+            e.addEventListener('load', listener, false);
+            e.addEventListener('error', listener, false);
+        } else if (typeof e.attachEvent === 'function') {
+            e.attachEvent('onload', listener);
+            e.attachEvent('onerror', listener);
+        }
+    }
+
+    function loadNext() {
+        var next = loaders.shift();
+        if (typeof next === "function") {
+            setTimeout(next);
+        }
+    }
+
+    var loaders = chains.reduce(function (acc, value) {
+        var mode = value[0];
+        var url = value[1];
+
+        switch (mode) {
+            case 'image':
+                acc.push(newImageLoader(url));
+                break;
+            case 'script':
+                acc.push(newScriptLoader(url));
+                break;
+            case 'iframe':
+                acc.push(newIframeLoader(url));
+                break;
+        }
+        return acc;
+    }, []);
+
+    for (var i = 0; i < limit; i++) {
+        loadNext();
+    }
+}
+
+	var chains = [];
+	chains.push(['image', 'https://ei.rlcdn.com/448046.gif?n=1']);
+	chains.push(['image', 'https://e.dlx.addthis.com/e/a-1137/s-7715?ret=img&na_em=f808fca12ebba29724f1952bce13ea5f6a728f8a&na_em=8C16E61B4899F1BEAA24C84D0A8947B0869DB0B0&na_ci=PkK89lYug9T0VXicfcrSimEiAQ&na_sp=3387']);
+	chains.push(['image', 'https://mid.rkdms.com/bct?pid=66326baa-c2c7-4867-94c1-ae2533db593b&_ct=img&e_sh1=8C16E61B4899F1BEAA24C84D0A8947B0869DB0B0&e_sh2=48696F6765207D592A884290A5E10917AF9EE81BC3343B2FB66C8AB4C05A70EE&e_md5=5b37fa95a28e905526ca6b9aecdae264']);
+	chains.push(['image', 'https://widget.criteo.com/event?a=40136&v=4.1.0&p0=e%3Dce%26m%3D%255B5b37fa95a28e905526ca6b9aecdae264%255D&rt=gif']);
+	chains.push(['image', 'https://login.dotomi.com/ucm/UCMController?dtm_com=29&dtm_fid=103&dtm_cid=3167&dtm_cmagic=20c86a&dtm_format=6&cli_promo_id=110&dtmc_pub_id=5839&dtm_email_hash=5b37fa95a28e905526ca6b9aecdae264']);
+	chains.push(['image', 'https://tr.snapchat.com/cs/r?u_hem=e6d4af1aa18a26dd7362e8735e950ec907aad72819116181fcdd7ec819956df7&u_hems=%5B%7B%22u_hem%22%3A%22e6d4af1aa18a26dd7362e8735e950ec907aad72819116181fcdd7ec819956df7%22%2C%22pub_id%22%3A%2211616%22%7D%2C%7B%22u_hem%22%3A%22501d32906929b3c96b1cd6dd490a357f4fbcc43ce30a567e956281baa4122be8%22%2C%22pub_id%22%3A%222166%22%7D%2C%7B%22u_hem%22%3A%2248696F6765207D592A884290A5E10917AF9EE81BC3343B2FB66C8AB4C05A70EE%22%2C%22pub_id%22%3A%225839%22%7D%5D']);
+	chains.push(['image', 'https://p.adsymptotic.com/d/px/?_pid=15577&_psign=0c2a910e9546544e39482a0408efbc33&_puuid=5b37fa95a28e905526ca6b9aecdae264&_rand=02057040']);
+	chains.push(['image', 'https://tag.apxlv.com/tag/partner/167?pixel_mode=pixel&md5=5b37fa95a28e905526ca6b9aecdae264&pid=5839&md5=40012fbe0d4233821477b45aa51311c4&pid=3387&s=501d32906929b3c96b1cd6dd490a357f4fbcc43ce30a567e956281baa4122be8&pid=2166&s=48696F6765207D592A884290A5E10917AF9EE81BC3343B2FB66C8AB4C05A70EE&pid=5839&s=e6d4af1aa18a26dd7362e8735e950ec907aad72819116181fcdd7ec819956df7&pid=11616']);
+	chains.push(['image', 'https://tag.yieldoptimizer.com/ps/ps?t=i&p=4514&sha256=501d32906929b3c96b1cd6dd490a357f4fbcc43ce30a567e956281baa4122be8&sha1=f808fca12ebba29724f1952bce13ea5f6a728f8a&md5=40012fbe0d4233821477b45aa51311c4']);
+	chains.push(['image', 'https://pixel.sojern.com/idsync/lr?&md5=5b37fa95a28e905526ca6b9aecdae264&md5=40012fbe0d4233821477b45aa51311c4&sha1=f808fca12ebba29724f1952bce13ea5f6a728f8a&sha1=8C16E61B4899F1BEAA24C84D0A8947B0869DB0B0&sha256=48696F6765207D592A884290A5E10917AF9EE81BC3343B2FB66C8AB4C05A70EE&sha256=e6d4af1aa18a26dd7362e8735e950ec907aad72819116181fcdd7ec819956df7&sha256=501d32906929b3c96b1cd6dd490a357f4fbcc43ce30a567e956281baa4122be8']);
+	chains.push(['image', 'https://idx.listrakbi.com/1/xv3sl1/pixel.gif?v=1&md5=40012fbe0d4233821477b45aa51311c4&md5=5b37fa95a28e905526ca6b9aecdae264&sha1=f808fca12ebba29724f1952bce13ea5f6a728f8a&sha1=8C16E61B4899F1BEAA24C84D0A8947B0869DB0B0&sha256=48696F6765207D592A884290A5E10917AF9EE81BC3343B2FB66C8AB4C05A70EE&sha256=e6d4af1aa18a26dd7362e8735e950ec907aad72819116181fcdd7ec819956df7&sha256=501d32906929b3c96b1cd6dd490a357f4fbcc43ce30a567e956281baa4122be8']);
+	chains.push(['image', 'https://ib.adnxs.com/getuid?https%3A%2F%2Fs.cpx.to%2Fca.png%3Fref%3Dhttp%253A%252F%252Fmikeadev.net%252F2015%252F02%252Fhow-to-create-a-recursive-call-with-unitys-coroutines%252F%26pid%3D11718%26url%3Dhttp%253A%252F%252Fmikeadev.net%252F2015%252F02%252Fhow-to-create-a-recursive-call-with-unitys-coroutines%252F%26adnxs_uid%3D%24UID']);
+	chains.push(['image', 'https://tag.apxlv.com/tag/partner/222?pixel_mode=pixel']);
+	chains.push(['image', 'https://p.adsymptotic.com/d/px?_pid=13553&_psign=9e62e5c043ecadc9479a0ccac401dd7d']);
+	chains.push(['image', 'https://rc.rlcdn.com/456809.gif?n=8']);
+
+	loadChains(chains, 10, (typeof onDone === "function") ? onDone : null);
+		};
+
+		if (document.body) { f(); } else { document.addEventListener('DOMContentLoaded', f); }
+	</script>
+</head><body></body></html>

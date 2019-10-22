@@ -23,7 +23,11 @@ public class GameManagerScript : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
-            
+            if (uiManager.showingSentance) {
+                return;
+            }
+
+
             if (EventSystem.current.IsPointerOverGameObject()) {
                 return;
             }
@@ -34,6 +38,7 @@ public class GameManagerScript : MonoBehaviour
                 uiManager.deleteSubTree(head, 0f);
                 head = hit.collider.gameObject.GetComponent<Task>().head;
                 uiManager.setNewHead(head);
+                //uiManager.generateAutoTree(head);
             }
             else {
                 uiManager.deleteSubTree(head, 0f);
