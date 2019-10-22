@@ -85,6 +85,12 @@ public class TextToTreeParser : MonoBehaviour {
             } else {
                 mostRecentNode.timeToAppear = 0;
             }
+            if (info.Length > 4) {
+                mostRecentNode.tags = info[4].Split(',');
+                for (int i = 0; i < mostRecentNode.tags.Length; i++) {
+                    mostRecentNode.tags[i] = mostRecentNode.tags[i].Replace(" ", "");
+                }
+            }
 
             TaskSO getAllParentsTime = mostRecentNode;
             while(getAllParentsTime = getAllParentsTime.parent) {

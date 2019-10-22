@@ -348,7 +348,8 @@ MonoBehaviour:
   tailSprite: {fileID: 21300000, guid: 5518bfbf02de640a1a28b67f664f3b97, type: 3}
   currentTasks: []
   gm: {fileID: 0}
-  disapearDelay: 0.3
+  disapearDelay: 0.15
+  showingSentance: 0
 --- !u!1 &412225073
 GameObject:
   m_ObjectHideFlags: 0

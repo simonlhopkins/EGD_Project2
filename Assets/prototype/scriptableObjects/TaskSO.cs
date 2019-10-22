@@ -15,6 +15,7 @@ public class TaskSO : ScriptableObject
     public bool complete = false;
     public bool hasBeenVisited = false;
     public float timeToAppear = 0f;
+    public string[] tags = new string[0];
 
 }
 

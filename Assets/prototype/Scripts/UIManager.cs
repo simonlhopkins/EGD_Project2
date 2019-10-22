@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-
+using System;
 //UI Manager handles all behavior for UI on the screen. However, these functions are called in
 //GameManager
 public class UIManager : MonoBehaviour
@@ -24,12 +24,21 @@ public class UIManager : MonoBehaviour
     public GameManagerScript gm;
     public float disapearDelay = 1f;
 
+    public bool showingSentance = false;
+
     //dictionary for keeping track of everything on the screen
     Dictionary<TaskSO, GameObject> taskToButtonDict = new Dictionary<TaskSO, GameObject>();
     Dictionary<GameObject, GameObject> boxToTailDict = new Dictionary<GameObject, GameObject>();
 
+
+    private void OnApplicationQuit()
+    {
+        StopAllCoroutines();
+    }
     //called one time on mouse down
     //creates, positions, and adds buttons with corresponding tasks
+
+
     public void generateTaskPopup(List<TaskSO> tasksToDisplay, Vector3 position) {
 
         if (tasksToDisplay.Count == 0) {
@@ -67,7 +76,7 @@ public class UIManager : MonoBehaviour
         foreach (GameObject button in renderedButtons) {
             Vector3 originalPos = button.GetComponent<RectTransform>().position;
             Sequence s = DOTween.Sequence();
-            s.Append(button.transform.DOShakeRotation(1f, 10f).SetLoops(int.MaxValue));
+            s.Append(button.transform.DOShakeRotation(1f, 10f));
         }
 
         Vector3 pointToSpawn = findValidPositionForPopup(position, _popupContainer);
@@ -97,11 +106,11 @@ public class UIManager : MonoBehaviour
         float canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
         float scaler = Screen.width / canvasWidth;
         Rect popupRect = _popup.GetComponent<RectTransform>().rect;
-        Vector3 tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + Random.insideUnitCircle.normalized * 10f;
+        Vector3 tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + UnityEngine.Random.insideUnitCircle.normalized * 10f;
         while (!foundValidPoint)
         {
             //try point relative to the screen
-            tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + Random.insideUnitCircle.normalized * 200 * scaler;
+            tryPoint = new Vector2(_mouseDownPos.x, _mouseDownPos.y) + UnityEngine.Random.insideUnitCircle.normalized * 200 * scaler;
 
             if (tryPoint.x < (Screen.width - popupRect.width * scaler / 2f) && tryPoint.x > (popupRect.width * scaler) / 2f)
             {
@@ -277,8 +286,7 @@ public class UIManager : MonoBehaviour
             updateCompleteness(head.parent, delay + disapearDelay);
         }
     }
-
-
+    
 
     public void deleteSubTree(TaskSO t, float delay)
     {
@@ -287,17 +295,17 @@ public class UIManager : MonoBehaviour
             return;
         }
 
+        
         foreach (TaskSO child in t.children)
         {
             if (taskToButtonDict.ContainsKey(child)) {
-                deleteSubTree(child, delay + disapearDelay);
+                deleteSubTree(child, delay);
             }
             
 
         }
-
+        Debug.Log(t.title);
         deleteNode(t, delay);
-
 
     }
 
@@ -337,7 +345,6 @@ public class UIManager : MonoBehaviour
         //s.Append(box.transform.DOMoveY(5f, 0.5f));
         if (boxToDestroy != null) {
             Sequence s = DOTween.Sequence();
-            Debug.Log("delay" + delay);
             s.Append(boxToDestroy.transform.DOMove(targetPos, disapearDelay).SetDelay(delay));
             s.Insert(0f, boxToDestroy.transform.DOScale(Vector3.zero, disapearDelay).SetDelay(delay));
             Destroy(boxToDestroy, s.Duration());
@@ -348,10 +355,15 @@ public class UIManager : MonoBehaviour
 
 
     //this function sets the new head to act on, and updates the graph based on this head being completed!
-    bool coroutineRunning = false;
     public void setNewHead(TaskSO t) {
+
         if (t.timeToAppear > 0) {
             return;
+        }
+        if (Array.IndexOf(t.tags, "end") > -1)
+        {
+            showingSentance = false;
+
         }
 
         if (!t.complete && t.achievementText!= null && t.achievementText!= "") {
@@ -386,36 +398,55 @@ public class UIManager : MonoBehaviour
         
         generateTaskPopup(t.children, Input.mousePosition);
 
+        if (t.children.Count != 0)
+        {
+            
+            if (t.children[0].tags.Length > 0) {
+                Debug.Log(t.children[0].tags[0]);
+            }
+            if(Array.IndexOf(t.children[0].tags, "start") > -1)
+            {
+                showingSentance = true;
+                t.complete = true;
+                generateAutoTree(t.children[0]);
+                return;
+            }
+        }
         //depth first search
 
 
+
+    }
+
+    //simon u dumb ass this is shitting the bed because of the other
+    //animation coroutines prob not working super great with this
+    //you can prob fix this by passing a flag to not generate the coroutines?? idk it should work
+
+    public void generateAutoTree(TaskSO t) {
+        StartCoroutine(snhCo(t));
+    }
+
+    
+    //rename this
+    IEnumerator snhCo(TaskSO t) {
+        yield return new WaitForSeconds(0.5f);
+        
+        yield return StartCoroutine(test(t));
+        foreach (TaskSO child in t.children) {
+            yield return StartCoroutine(snhCo(child));
+        }
         
 
+        yield return null;
     }
 
-    float timeForAutoTree = 0;
-    public void generateAutoTree(TaskSO t) {
-        bfsHelper(t);
-    }
-
-    public void bfsHelper(TaskSO current) {
-
-        Debug.Log(current.title + ": " + timeForAutoTree);
-
-        foreach (TaskSO t in current.children) {
-            timeForAutoTree++;
-            StartCoroutine(snhCo(current, timeForAutoTree));
-            bfsHelper(t);
-
-        }
-    }
-
-    IEnumerator snhCo(TaskSO t, float time) {
-        yield return new WaitForSeconds(time);
-
+    //rename this
+    IEnumerator test(TaskSO t) {
+        Debug.Log(t.title);
         setNewHead(t);
+        yield return null;
     }
-    
+
 
 
     public void achievementAnimation(TaskSO t, GameObject objectAdded, Vector3 start, Vector3 end, float time) {
