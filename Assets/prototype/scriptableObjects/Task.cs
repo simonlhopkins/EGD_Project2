@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using DG.Tweening;
 
 public class Task : MonoBehaviour
 {
@@ -11,40 +11,31 @@ public class Task : MonoBehaviour
     public TaskSO head;
     public HashSet<TaskSO> nodes = new HashSet<TaskSO>();
     public string filePath;
+    public UIManager uiManager;
 
 
     private void Start()
     {
 
-        
+        uiManager = GameObject.Find("gameManager").GetComponent<UIManager>();
 
         head = new GameObject().AddComponent<TextToTreeParser>().generateTree(filePath);
 
-        //foreach(TaskSO task in nodes)
-        //{
-        //    task.complete = false;
-        //}
+        uiManager.generateCheckList(head, uiManager.UICompletionPanel.transform);
+        StartCoroutine(animCo());
+
         
 
     }
 
-    private void addNodes(TaskSO parent, List<TaskSO> children) {
-        nodes.Add(parent);
-        foreach (TaskSO child in children) {
-            parent.children.Add(child);
-            child.parent = parent;
-            nodes.Add(child);
+    IEnumerator animCo() {
+        while (true) {
+            Tween t = transform.DOShakeRotation(1f, 10f).SetDelay(Random.Range(2f, 5f));
+            yield return t.WaitForCompletion();
+
         }
     }
 
-    private void Update()
-    {
-
-        
-
-        
-
-    }
 
     
 

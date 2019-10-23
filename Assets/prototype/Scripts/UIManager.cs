@@ -25,13 +25,18 @@ public class UIManager : MonoBehaviour
     public float disapearDelay = 1f;
 
     public bool showingSentance = false;
+    public GameObject UICompletionPanel;
+    public GameObject UICompletionChildPrefab;
+    public GameObject scrollRect;
 
     //dictionary for keeping track of everything on the screen
     Dictionary<TaskSO, GameObject> taskToButtonDict = new Dictionary<TaskSO, GameObject>();
     Dictionary<GameObject, GameObject> boxToTailDict = new Dictionary<GameObject, GameObject>();
 
-    
-    
+
+    Dictionary<TaskSO, GameObject> taskToIsDoneDict = new Dictionary<TaskSO, GameObject>();
+
+
 
     private void OnApplicationQuit()
     {
@@ -40,6 +45,18 @@ public class UIManager : MonoBehaviour
     //called one time on mouse down
     //creates, positions, and adds buttons with corresponding tasks
 
+
+
+    public void generateCheckList(TaskSO head, Transform parent)
+    {
+        GameObject newCheckListItem = Instantiate(UICompletionChildPrefab, parent);
+        newCheckListItem.GetComponentInChildren<TMP_Text>().text = "?????";
+        newCheckListItem.transform.localScale = Vector3.one;
+        taskToIsDoneDict.Add(head, newCheckListItem);
+        foreach (TaskSO child in head.children) {
+            generateCheckList(child, newCheckListItem.transform);
+        }
+    }
 
     public Sequence generateTaskPopup(List<TaskSO> tasksToDisplay, Vector3 position) {
 
@@ -392,6 +409,7 @@ public class UIManager : MonoBehaviour
 
 
         t.complete = true;
+        taskToIsDoneDict[t].GetComponentInChildren<TMP_Text>().text = t.title;
         if (taskToButtonDict.ContainsKey(t))
         {
             

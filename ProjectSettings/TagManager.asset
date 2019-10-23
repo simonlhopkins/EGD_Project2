@@ -14,7 +14,7 @@ TagManager:
   - 
   - 
   - clickable
-  - 
+  - journal
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 4247366643
+    locked: 0
+  - name: journal
+    uniqueID: 672313917
     locked: 0

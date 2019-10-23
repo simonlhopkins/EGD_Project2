@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -9,18 +10,32 @@ public class GameManagerScript : MonoBehaviour
 
     private UIManager uiManager;
     public TaskSO head;
+    public bool UIactive = false;
 
     void Start()
     {
         uiManager = GetComponent<UIManager>();
         head = null;
-
+        //uiManager.scrollRect.SetActive(false);
+        //uiManager.scrollRect.transform.position = -Vector3.up * 500f;
+        uiManager.scrollRect.GetComponent<RectTransform>().DOMoveY(-100f, 0f);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (!UIactive)
+            {
+                uiManager.scrollRect.GetComponent<RectTransform>().DOMoveY(100f, 1f);
+            }
+            else {
+                uiManager.scrollRect.GetComponent<RectTransform>().DOMoveY(-100f, 1f);
+            }
+            UIactive = !UIactive;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             if (uiManager.showingSentance) {
@@ -31,7 +46,7 @@ public class GameManagerScript : MonoBehaviour
             if (EventSystem.current.IsPointerOverGameObject()) {
                 return;
             }
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), -Vector2.up, Mathf.Infinity, 1 << LayerMask.NameToLayer("clickable"));
             if (hit.collider != null)
             {
                 
@@ -47,6 +62,8 @@ public class GameManagerScript : MonoBehaviour
 
 
     }
+
+    
 
     
     private void bfs(TaskSO _head) {
